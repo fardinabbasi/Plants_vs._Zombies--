@@ -1,5 +1,6 @@
 #ifndef PVZ_HPP
 #define PVZ_HPP
+#include "Menu.hpp"
 #include "Defs.hpp"
 #include <iostream>
 #include <SFML/Graphics.hpp>
@@ -20,11 +21,11 @@ class PVZ{
     PVZ(map<string, map<string, int>> config);
     //~PVZ();
     void run();
-    void starting_draw();
     void event_handler();
     private:
     map<string, map<string, int>> config;
     State state;
+    Menu menu;
     RenderWindow window;
 };
 

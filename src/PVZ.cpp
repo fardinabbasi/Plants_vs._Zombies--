@@ -6,6 +6,7 @@ PVZ::PVZ(map<string, map<string, int>> config): config(config)
     window.create(VideoMode(WINDOW_WIDTH ,WINDOW_HEIGHT), "PVZ", Style::Close);
     window.setFramerateLimit(FRAME_RATE);
     state = Starting_Screen;
+    Menu menu;
 }
 
 void PVZ::run(){
@@ -15,7 +16,7 @@ void PVZ::run(){
         switch (state)
         {
         case Starting_Screen:
-            starting_draw();
+            menu.render(window);
             break;
         case IN_GAME:
             break;
@@ -30,17 +31,6 @@ void PVZ::run(){
             break;
         }
     }
-}
-
-void PVZ::starting_draw(){
-    Texture mainmenu_texture;
-    if (!mainmenu_texture.loadFromFile(IMAGES_PATH + "StartingScreen.png")) {
-        cerr << FILE_FAILED_MESSAGE << endl;
-    }
-    Sprite mainmenu_sprite;
-    mainmenu_sprite.setTexture(mainmenu_texture);
-    window.draw(mainmenu_sprite);
-    window.display();
 }
 
 void PVZ::event_handler(){
