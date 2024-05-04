@@ -11,7 +11,8 @@ Menu::Menu(){
 }
 
 void Menu::render(RenderWindow &window){
-    music.play();
+    if(music.getStatus() != Music::Playing)
+        music.play();
     window.draw(sprite);
     window.display();
 }
