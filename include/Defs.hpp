@@ -11,4 +11,5 @@ using namespace std;
 #define FRAME_RATE 60
 const string IMAGES_PATH = "./assets/images/";
 const string MUSIC_PATH = "./assets/musics/";
+
 #endif

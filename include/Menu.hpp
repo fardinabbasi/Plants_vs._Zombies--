@@ -13,10 +13,12 @@ class Menu{
 public:
 Menu();
 void render(RenderWindow &window);
+bool start_button(Vector2i mousePos);
 private:
 Texture texture;
 Sprite sprite;
 Music music;
+RectangleShape button;
 };
 
 #endif

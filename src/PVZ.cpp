@@ -36,12 +36,21 @@ void PVZ::run(){
 void PVZ::event_handler(){
     Event event;
     while (window.pollEvent(event) && state != EXIT) {
-    switch (event.type) {
-    case (Event::Closed):
-      state = EXIT;
-      break;
-    default:
-      break;
+        if(event.type == Event::Closed)
+            state = EXIT;
+        else if(event.type == Event::MouseButtonPressed && event.mouseButton.button == Mouse::Left){
+            switch (state)
+            {
+            case Starting_Screen:
+                if(menu.start_button(Mouse::getPosition(window)))
+                    state = IN_GAME;
+                break;
+            case IN_GAME:
+                break;
+            default:
+                break;
+            }
+        }
+
     }
-  }
 }
