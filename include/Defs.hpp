@@ -12,4 +12,5 @@ using namespace std;
 const string IMAGES_PATH = "./assets/images/";
 const string MUSIC_PATH = "./assets/musics/";
 
+
 #endif
