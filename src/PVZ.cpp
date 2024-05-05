@@ -1,11 +1,12 @@
 #include "PVZ.hpp"
 
 
-PVZ::PVZ(map<string, map<string, int>> config): battle(config)
+PVZ::PVZ(map<string, map<string, int>> config):
+battle(config), victory_screen("Victory.jpg", "Victory.ogg"), lose_screen("GameOver.png", "Lose.ogg")
 {
     window.create(VideoMode(WINDOW_WIDTH ,WINDOW_HEIGHT), "PVZ", Style::Close);
     window.setFramerateLimit(FRAME_RATE);
-    state = Starting_Screen;
+    state = Starting;
 }
 
 void PVZ::run(){
@@ -14,15 +15,17 @@ void PVZ::run(){
         event_handler();
         switch (state)
         {
-        case Starting_Screen:
+        case Starting:
             menu.render(window);
             break;
         case BATTLE:
             battle.render(window);
             break;
-        case VICTORY_SCREEN:
+        case VICTORY:
+            victory_screen.render(window);
             break;
-        case GAMEOVER_SCREEN:
+        case GAMEOVER:
+            lose_screen.render(window);
             break;
         case EXIT:
             window.close();
@@ -41,7 +44,7 @@ void PVZ::event_handler(){
         else if(event.type == Event::MouseButtonPressed && event.mouseButton.button == Mouse::Left){
             switch (state)
             {
-            case Starting_Screen:
+            case Starting:
                 if(menu.start_button(Mouse::getPosition(window)))
                     state = BATTLE;
                 break;
@@ -51,6 +54,5 @@ void PVZ::event_handler(){
                 break;
             }
         }
-
     }
 }

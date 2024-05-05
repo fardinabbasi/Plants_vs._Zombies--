@@ -3,20 +3,18 @@
 
 #include <iostream>
 #include "Defs.hpp"
+#include "BaseScreen.hpp"
 #include <SFML/Graphics.hpp>
-#include <SFML/Audio.hpp>
 
 using namespace sf;
 using namespace std;
 
-class Battle{
+class Battle: public BaseScreen{
     public:
     Battle(map<string, map<string, int>>& config);
-    void render(RenderWindow &window);
+    void render(RenderWindow& window);//will override
     private:
-    Texture background_tx;
-    Sprite background_sp;
-    Music music;
     map<string, map<string, int>> config;
 };
+
 #endif

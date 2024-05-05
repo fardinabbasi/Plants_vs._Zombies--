@@ -1,5 +1,6 @@
 #ifndef PVZ_HPP
 #define PVZ_HPP
+
 #include "Menu.hpp"
 #include "Defs.hpp"
 #include "Battle.hpp"
@@ -11,9 +12,9 @@ using namespace sf;
 
 enum State {
   BATTLE,
-  Starting_Screen,
-  VICTORY_SCREEN,
-  GAMEOVER_SCREEN,
+  Starting,
+  VICTORY,
+  GAMEOVER,
   EXIT
 };
 
@@ -24,10 +25,10 @@ class PVZ{
     void run();
     void event_handler();
     private:
-    map<string, map<string, int>> config;
     State state;
     Menu menu;
     Battle battle;
+    BaseScreen victory_screen, lose_screen;
     RenderWindow window;
 };
 

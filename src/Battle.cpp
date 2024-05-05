@@ -1,13 +1,8 @@
-#include "../include/Battle.hpp"
+#include "Battle.hpp"
 
-Battle::Battle(map<string, map<string, int>>& config): config(config){
-    if (!background_tx.loadFromFile(IMAGES_PATH + "Background.png")) {
-        cerr << FILE_FAILED_MESSAGE << endl;
-    }
-    background_sp.setTexture(background_tx);
-    if (!music.openFromFile(MUSIC_PATH + "Loonboon.ogg"))
-        cerr << FILE_FAILED_MESSAGE << endl;
-    music.setLoop(true);
+Battle::Battle(map<string, map<string, int>>& config): config(config), BaseScreen("Background.png", "Loonboon.ogg")
+{
+//
 }
 
 void Battle::render(RenderWindow &window){

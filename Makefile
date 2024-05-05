@@ -1,38 +1,23 @@
 CC = g++
-BUILD_DIR = build
+CFLAGS = -std=c++20 -Iinclude
+
+SFML_LIBS = -lsfml-graphics -lsfml-window -lsfml-system -lsfml-audio
+
 SRC_DIR = src
 INCLUDE_DIR = include
-CFLAGS = -std=c++20 -Wall -I$(INCLUDE_DIR) -g
-LFLAGS = -lsfml-graphics -lsfml-window -lsfml-system -lsfml-audio
+BUILD_DIR = build
 
-EXECUTABLE_FILE = pvz.out
+SOURCES = $(wildcard $(SRC_DIR)/*.cpp)
+OBJECTS = $(patsubst $(SRC_DIR)/%.cpp,$(BUILD_DIR)/%.o,$(SOURCES))
+EXECUTABLE = pvz.out
 
-all: $(BUILD_DIR) $(EXECUTABLE_FILE)
+all: $(EXECUTABLE)
 
-$(BUILD_DIR):
-	mkdir -p $(BUILD_DIR)
+$(EXECUTABLE): $(OBJECTS)
+	$(CC) $(CFLAGS) $(OBJECTS) -o $(EXECUTABLE) $(SFML_LIBS)
 
-OBJECTS = \
-	$(BUILD_DIR)/main.o \
-	$(BUILD_DIR)/PVZ.o \
-	$(BUILD_DIR)/Menu.o \
-	$(BUILD_DIR)/Battle.o \
+$(BUILD_DIR)/%.o: $(SRC_DIR)/%.cpp
+	$(CC) $(CFLAGS) -c $< -o $@
 
-$(BUILD_DIR)/main.o: $(SRC_DIR)/main.cpp $(INCLUDE_DIR)/utils.hpp $(INCLUDE_DIR)/Defs.hpp $(INCLUDE_DIR)/PVZ.hpp
-	$(CC) $(CFLAGS) $(LFLAGS) -c $(SRC_DIR)/Main.cpp -o $(BUILD_DIR)/Main.o
-
-$(BUILD_DIR)/PVZ.o: $(SRC_DIR)/PVZ.cpp $(INCLUDE_DIR)/PVZ.hpp
-	$(CC) $(CFLAGS) $(LFLAGS) -c $(SRC_DIR)/PVZ.cpp -o $(BUILD_DIR)/PVZ.o
-
-$(BUILD_DIR)/Menu.o: $(SRC_DIR)/Menu.cpp $(INCLUDE_DIR)/Menu.hpp
-	$(CC) $(CFLAGS) $(LFLAGS) -c $(SRC_DIR)/Menu.cpp -o $(BUILD_DIR)/Menu.o
-
-$(BUILD_DIR)/Battle.o: $(SRC_DIR)/Battle.cpp $(INCLUDE_DIR)/Battle.hpp
-	$(CC) $(CFLAGS) $(LFLAGS) -c $(SRC_DIR)/Battle.cpp -o $(BUILD_DIR)/Battle.o
-
-$(EXECUTABLE_FILE): $(OBJECTS)
-	$(CC) $(CFLAGS) $(OBJECTS) $(LFLAGS) -o $(EXECUTABLE_FILE)
-
-.PHONY: clean
 clean:
-	rm -rf $(BUILD_DIR) *.o *.out
+	rm -rf $(BUILD_DIR)/*.o $(EXECUTABLE)
