@@ -2,6 +2,7 @@
 #define PVZ_HPP
 #include "Menu.hpp"
 #include "Defs.hpp"
+#include "Battle.hpp"
 #include <iostream>
 #include <SFML/Graphics.hpp>
 
@@ -9,7 +10,7 @@ using namespace std;
 using namespace sf;
 
 enum State {
-  IN_GAME,
+  BATTLE,
   Starting_Screen,
   VICTORY_SCREEN,
   GAMEOVER_SCREEN,
@@ -26,6 +27,7 @@ class PVZ{
     map<string, map<string, int>> config;
     State state;
     Menu menu;
+    Battle battle;
     RenderWindow window;
 };
 

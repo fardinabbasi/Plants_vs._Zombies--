@@ -1,12 +1,11 @@
 #include "PVZ.hpp"
 
 
-PVZ::PVZ(map<string, map<string, int>> config): config(config)
+PVZ::PVZ(map<string, map<string, int>> config): battle(config)
 {
     window.create(VideoMode(WINDOW_WIDTH ,WINDOW_HEIGHT), "PVZ", Style::Close);
     window.setFramerateLimit(FRAME_RATE);
     state = Starting_Screen;
-    Menu menu;
 }
 
 void PVZ::run(){
@@ -18,7 +17,8 @@ void PVZ::run(){
         case Starting_Screen:
             menu.render(window);
             break;
-        case IN_GAME:
+        case BATTLE:
+            battle.render(window);
             break;
         case VICTORY_SCREEN:
             break;
@@ -43,9 +43,9 @@ void PVZ::event_handler(){
             {
             case Starting_Screen:
                 if(menu.start_button(Mouse::getPosition(window)))
-                    state = IN_GAME;
+                    state = BATTLE;
                 break;
-            case IN_GAME:
+            case BATTLE:
                 break;
             default:
                 break;
