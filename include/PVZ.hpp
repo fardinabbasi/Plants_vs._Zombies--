@@ -4,11 +4,6 @@
 #include "Menu.hpp"
 #include "Defs.hpp"
 #include "Battle.hpp"
-#include <iostream>
-#include <SFML/Graphics.hpp>
-
-using namespace std;
-using namespace sf;
 
 enum State {
   BATTLE,
