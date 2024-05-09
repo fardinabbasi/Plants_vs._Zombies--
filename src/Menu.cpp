@@ -2,8 +2,9 @@
 
 Menu::Menu(): BaseScreen("StartingScreen.png", "StartingScreen.ogg")
 {
-    button.setPosition(250, 550);
+    FloatRect bg_bound = background_sp.getGlobalBounds();
     button.setSize(Vector2f(610, 75));
+    button.setPosition(bg_bound.left+250, bg_bound.top+550);
 }
 
 bool Menu::start_button(Vector2i mousePos){
