@@ -1,7 +1,7 @@
 #include "../include/Sun.hpp"
 
 Sun::Sun(map<string, int> config, const FloatRect bg_bound):
-config(config), bg_bound(bg_bound)
+config(config), bg_bound(bg_bound), gen(SEED)
 {
     if(config.contains("StartingNum"))
         sun_budget = config["StartingNum"];
@@ -29,14 +29,24 @@ config(config), bg_bound(bg_bound)
 }
 
 void Sun::render(RenderWindow &window){
+    update();
     window.draw(deck_sp);
+    for (auto&sun:suns){
+        window.draw(sun);
+    }
     window.draw(deck_txt);
 }
 
 void Sun::update(){
-    uniform_int_distribution<int> dis(260, 980);
+    for_each(suns.begin(), suns.end(), [](Sprite& sun){ sun.move(0,1); });
+    if (suns.front().getPosition().y >= bg_bound.height)
+        suns.pop_front();
+
     if(clock.getElapsedTime().asSeconds() >= config["Interval"]){
         clock.restart();
-
+        uniform_int_distribution<int> dis(260, 980);
+        Sprite new_sun = deck_sp;
+        new_sun.setPosition(Vector2f(dis(gen), 0));
+        suns.push_back(new_sun);
     }
 }
