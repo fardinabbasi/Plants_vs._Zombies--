@@ -1,4 +1,4 @@
-#include "../include/Sun.hpp"
+#include "Sun.hpp"
 
 Sun::Sun(map<string, int> config, const FloatRect bg_bound):
 config(config), bg_bound(bg_bound), gen(SEED)
