@@ -1,6 +1,6 @@
 #include "BaseZombie.hpp"
 
-BaseZombie::BaseZombie(const map<string, unsigned int> config, const string tex_path, const FloatRect bg_bound):
+BaseZombie::BaseZombie(map<string, int> config, string tex_path, FloatRect bg_bound):
 config(config), bg_bound(bg_bound)
 {   
     plant = nullptr; 

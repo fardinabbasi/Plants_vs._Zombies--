@@ -37,7 +37,8 @@ void Sun::render(RenderWindow &window){
 }
 
 void Sun::update(){
-    for_each(suns.begin(), suns.end(), [](Sprite& sun){ sun.move(0,1); });
+    unsigned int speed = config["Speed"];
+    for_each(suns.begin(), suns.end(), [speed](Sprite& sun){ sun.move(0, speed); });
     if (suns.front().getPosition().y >= bg_bound.height)
         suns.pop_front();
 

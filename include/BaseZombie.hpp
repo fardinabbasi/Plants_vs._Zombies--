@@ -7,7 +7,7 @@
 
 class BaseZombie{
     public:
-    BaseZombie(const map<string, unsigned int> config, const string tex_path, const FloatRect bg_bound);
+    BaseZombie(map<string, int> config, string tex_path, FloatRect bg_bound);
     void update();
     void set_target(Plant* plant);
     void hurt(unsigned int damage);
