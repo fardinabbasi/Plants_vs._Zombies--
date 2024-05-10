@@ -17,17 +17,17 @@ class Plant
 
     protected:
     Sprite plant_sp;
-    Sprite deck_sp;
     Texture plant_tex;
+    Sprite deck_sp;
     Font font;
     Text deck_txt;
     int damage;
     int health;
     int hit_rate;
-    int speed;
-    int cool_down;
+    float speed;
+    Time cool_down;
     int price;
-    Clock clock;
+    Clock attack_clock;
     
 };
 
