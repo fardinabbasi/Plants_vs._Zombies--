@@ -12,7 +12,9 @@ class BaseZombie{
     void set_target(Plant* plant);
     void hurt(unsigned int damage);
     bool dead();
-    bool BaseZombie::win();
+    bool win();
+    float get_height();
+    void render(RenderWindow &window);
     private:
     const FloatRect bg_bound;
     unsigned int health;
@@ -20,6 +22,7 @@ class BaseZombie{
     Sprite sprite;
     Plant* plant;
     map<string, unsigned int> config;
+    Clock clock;
 };
 
 

@@ -13,6 +13,7 @@ void Battle::render(RenderWindow &window){
     if(music.getStatus() != Music::Playing)
         music.play();
     window.draw(background_sp);
+    for_each(zombies.begin(), zombies.end(), [&window](BaseZombie& zombie){ zombie.render(window); });
     sun->render(window);
     window.display();
 }
@@ -36,4 +37,29 @@ void Battle::update(){
         return;
     }
     sun->update();
+    find_target();
+    for_each(zombies.begin(), zombies.end(), [](BaseZombie& zombie){ zombie.update(); });
+
+}
+
+void Battle::find_target(){
+    auto plant_it = plants.begin();
+    auto zombie_it = zombies.begin();
+
+    while(plant_it != plants.end()){
+        if(plant_it->dead()){
+            plant_it = plants.erase(plant_it);
+            continue;
+        }
+        while (zombie_it != zombies.end()){
+            if(zombie_it->dead()){
+                zombie_it = zombies.erase(zombie_it);
+                continue;
+            }   
+            zombie_it->set_target(&(*plant_it));
+            plant_it->set_target(&(*zombie_it));
+            ++zombie_it;
+        }
+        ++plant_it;
+    }
 }

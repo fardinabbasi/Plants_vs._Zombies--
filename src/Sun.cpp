@@ -62,6 +62,6 @@ void Sun::mouse_press(int x, int y){
             break;
         }
         else
-            it++;
+            ++it;
     }
 }

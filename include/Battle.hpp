@@ -15,11 +15,12 @@ class Battle: public BaseScreen{
     void render(RenderWindow& window);
     State mouse_press(int x, int y);
     void update();
+    void find_target();
     private:
     map<string, map<string, int>> config;
     Sun* sun;
     list<BaseZombie> zombies;
-    list<Plant> zombies;
+    list<Plant> plants;
     State state;
     Clock clock;
 };
