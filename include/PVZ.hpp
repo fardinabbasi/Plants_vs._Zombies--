@@ -9,7 +9,6 @@
 class PVZ{
     public:
     PVZ(map<string, map<string, int>> config);
-    //~PVZ();
     void run();
     void event_handler();
     private:

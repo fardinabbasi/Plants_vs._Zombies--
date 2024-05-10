@@ -1,6 +1,7 @@
 #ifndef DEFS_HPP
 #define DEFS_HPP
 
+#include <vector>
 #include <iostream>
 #include <string>
 #include <SFML/Graphics.hpp>
@@ -18,6 +19,13 @@ using namespace std;
 const string IMAGES_PATH = "./assets/images/";
 const string MUSIC_PATH = "./assets/musics/";
 const string FONTS_PATH = "./assets/fonts/";
+
+const vector<unsigned int> WIDTH_GRIDS = {
+  295, 370, 453, 530, 620, 700, 780, 855, 940
+};
+const vector<unsigned int> HEIGHT_GRIDS ={
+  125, 230, 320, 420, 520
+};
 
 enum State {
   BATTLE,
