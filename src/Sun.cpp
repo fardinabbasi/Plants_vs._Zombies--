@@ -58,7 +58,7 @@ void Sun::mouse_press(int x, int y){
     while(it != suns.end()){
         if (it->getGlobalBounds().contains(Vector2f(x,y))){
             budget++;
-            suns.erase(it);
+            it = suns.erase(it);
             break;
         }
         else
