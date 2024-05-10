@@ -21,7 +21,7 @@ class BaseZombie{
     Texture texture;
     Sprite sprite;
     Plant* plant;
-    map<string, unsigned int> config;
+    map<string, int> config;
     Clock clock;
 };
 
