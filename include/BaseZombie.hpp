@@ -3,16 +3,19 @@
 
 #include "Defs.hpp"
 #include <map>
+#include <random>
 
 class BaseZombie{
     public:
-    BaseZombie(){ plant = nullptr; }
+    BaseZombie(const map<string, unsigned int> config, const string tex_path, const FloatRect bg_bound);
     void update();
     void set_target(Plant* plant);
     void hurt(unsigned int damage);
     bool dead();
-    protected:
-    unsigned int health, damage, speed;
+    bool BaseZombie::win();
+    private:
+    const FloatRect bg_bound;
+    unsigned int health;
     Texture texture;
     Sprite sprite;
     Plant* plant;

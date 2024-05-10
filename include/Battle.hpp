@@ -1,9 +1,12 @@
 #ifndef BATTLE_HPP
 #define BATTLE_HPP
 
+#include <list>
+#include "BaseZombie.hpp"
 #include "Defs.hpp"
 #include "BaseScreen.hpp"
 #include "Sun.hpp"
+#include <algorithm>
 
 class Battle: public BaseScreen{
     public:
@@ -15,7 +18,10 @@ class Battle: public BaseScreen{
     private:
     map<string, map<string, int>> config;
     Sun* sun;
+    list<BaseZombie> zombies;
+    list<Plant> zombies;
     State state;
+    Clock clock;
 };
 
 #endif

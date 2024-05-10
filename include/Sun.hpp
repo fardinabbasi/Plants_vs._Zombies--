@@ -26,7 +26,6 @@ class Sun{
     Text deck_txt;
     list<Sprite> suns;
     Clock clock;
-    mt19937 gen;
 };
 
 #endif

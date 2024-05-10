@@ -3,6 +3,7 @@
 Battle::Battle(map<string, map<string, int>>& config): 
 config(config), BaseScreen("BackGround.png", "Loonboon.ogg")
 {
+    clock.restart();
     state = BATTLE;
     sun = new Sun(config["Sun"], background_sp.getGlobalBounds());
 }
@@ -26,5 +27,13 @@ Battle::~Battle(){
 }
 
 void Battle::update(){
+    if(any_of(zombies.begin(), zombies.end(),[](BaseZombie& zombie){ zombie.win(); })){
+        state = GAMEOVER;
+        return;
+    }
+    else if (clock.getElapsedTime().asSeconds() >= config["Attacks"]["TotalTime"]){
+        state = VICTORY;
+        return;
+    }
     sun->update();
 }

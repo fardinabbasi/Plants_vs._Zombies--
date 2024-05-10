@@ -1,7 +1,7 @@
 #include "Sun.hpp"
 
 Sun::Sun(map<string, int> config, const FloatRect bg_bound):
-config(config), bg_bound(bg_bound), gen(SEED)
+config(config), bg_bound(bg_bound)
 {
     if(config.contains("StartingNum"))
         budget = config["StartingNum"];
@@ -43,6 +43,8 @@ void Sun::update(){
 
     if(clock.getElapsedTime().asSeconds() >= config["Interval"]){
         clock.restart();
+        random_device rd;
+        mt19937 gen(rd());
         uniform_int_distribution<int> dis(260, 980);
         Sprite new_sun = deck_sp;
         new_sun.setPosition(Vector2f(dis(gen), 0));
