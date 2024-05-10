@@ -11,7 +11,7 @@ class Plant
 {
     public:
     Plant(){};
-    Plant(map<string, int> config,string plant_tex_file,const FloatRect bg_bound);
+    Plant(map<string, int> config,string plant_tex_file,const FloatRect bg_bound,const Vector2f& position);
     void render(RenderWindow& window);
     void update();
 
@@ -28,6 +28,7 @@ class Plant
     Time cool_down;
     int price;
     Clock attack_clock;
+    Vector2f position;
     
 };
 

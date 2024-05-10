@@ -56,7 +56,12 @@ void Battle::render(RenderWindow &window)
     window.draw(sun_flower_sp);
     window.draw(peanut_sp);
     sun->render(window);
+    for (auto&plant:plants)
+    {
+        plant->render(window);
+    }
     window.display();
+    
 }
 
 Battle::~Battle(){
@@ -64,7 +69,7 @@ Battle::~Battle(){
 }
 
 
-void Battle::handleEvents(RenderWindow& window, Event& event)
+void Battle::event_handler(RenderWindow& window, Event& event)
 {
     if (event.type == Event::MouseButtonPressed) 
     {
@@ -72,36 +77,48 @@ void Battle::handleEvents(RenderWindow& window, Event& event)
         if (pea_shooter_sp.getGlobalBounds().contains(mousePos.x, mousePos.y)) 
         {
             is_dragging = true;
-            selectedPlant = &pea_shooter_sp;
+            selected_plant = "pea_shooter";
+            cout<<"IM HERE111!"<<endl;
         } 
         else if (snowy_pea_sp.getGlobalBounds().contains(mousePos.x, mousePos.y)) 
         {
             is_dragging = true;
-            selectedPlant = &snowy_pea_sp;
+            selected_plant = "snow_shooter";
+            cout<<"IM HERE2222!"<<endl;
         } 
         else if (sun_flower_sp.getGlobalBounds().contains(mousePos.x, mousePos.y)) 
         {
             is_dragging = true;
-            selectedPlant = &sun_flower_sp;
+            selected_plant = "sun_flower";
+            cout<<"IM HERE3333!"<<endl;
         } 
         else if (peanut_sp.getGlobalBounds().contains(mousePos.x, mousePos.y)) 
         {
             is_dragging = true;
-            selectedPlant = &peanut_sp;
+            selected_plant = "peanut";
+            cout<<"IM HERE44444!"<<endl;
         }
     } 
     else if (event.type == Event::MouseButtonReleased) 
     {
-        is_dragging = false;
-        selectedPlant = nullptr;
-    } 
-    else if (event.type == Event::MouseMoved) 
-    {
-        if (is_dragging && selectedPlant != nullptr) 
+        if (is_dragging) 
         {
             Vector2i mousePos = Mouse::getPosition(window);
-            selectedPlant->setPosition(mousePos.x - selectedPlant->getGlobalBounds().width / 2,
-                                       mousePos.y - selectedPlant->getGlobalBounds().height / 2);
+            //if (mousePos.x >= MIN_X && mousePos.x <= MAX_X && 
+            //    mousePos.y >= MIN_Y && mousePos.y <= MAX_Y) 
+            //{
+                Vector2f worldPos = window.mapPixelToCoords(mousePos);
+                add_plant(selected_plant, worldPos);
+            //}
+            cout<<"IM HERE5555!"<<endl;
+            is_dragging = false;
+            selected_plant = "";  
         }
     }
+}
+
+void Battle::add_plant(const string& type, const Vector2f& position) 
+{
+    Plant* newPlant = new Plant(config["PeaShooter"],"PeaShooter.png",background_sp.getGlobalBounds(),position);
+    plants.push_back(newPlant);
 }

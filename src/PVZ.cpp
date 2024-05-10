@@ -38,10 +38,12 @@ void PVZ::run(){
 
 void PVZ::event_handler(){
     Event event;
-    while (window.pollEvent(event) && state != EXIT) {
+    while (window.pollEvent(event) && state != EXIT) 
+    {
         if(event.type == Event::Closed)
             state = EXIT;
-        else if(event.type == Event::MouseButtonPressed && event.mouseButton.button == Mouse::Left){
+        else if((event.type == Event::MouseButtonPressed || event.type == Event::MouseButtonReleased) && event.mouseButton.button == Mouse::Left)
+        {
             switch (state)
             {
             case Starting:
@@ -49,6 +51,8 @@ void PVZ::event_handler(){
                     state = BATTLE;
                 break;
             case BATTLE:
+                cout<<"IM HERE!"<<endl;
+                battle.event_handler(window, event);
                 break;
             default:
                 break;
