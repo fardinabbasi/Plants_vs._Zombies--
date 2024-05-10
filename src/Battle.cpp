@@ -33,6 +33,7 @@ Battle::~Battle(){
 void Battle::update(){
 
     sun->update();
+    attack();
     find_target();
     for_each(zombies.begin(), zombies.end(), [](BaseZombie* zombie){ zombie->update(); });
 
@@ -70,7 +71,7 @@ void Battle::attack(){
         state = VICTORY;
         return;
     }
-    unsigned int num_intervals = config["Attacks"]["TotalTime"];
+    unsigned int num_intervals = config["Attacks"]["TotalTime"]/config["Attacks"]["Interval"];
     float elapsed = clock.getElapsedTime().asSeconds();
     for (unsigned int i = 1; i <= num_intervals; i++){
         if ((i-1)*config["Attacks"]["Interval"] <= elapsed && i*config["Attacks"]["Interval"] > elapsed){
