@@ -23,3 +23,7 @@ State Battle::mouse_press(int x, int y){
 Battle::~Battle(){
     delete sun;
 }
+
+void Battle::update(){
+    sun->update();
+}

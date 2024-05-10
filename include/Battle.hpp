@@ -11,6 +11,7 @@ class Battle: public BaseScreen{
     ~Battle();
     void render(RenderWindow& window);
     State mouse_press(int x, int y);
+    void update();
     private:
     map<string, map<string, int>> config;
     Sun* sun;
