@@ -13,7 +13,7 @@ class Sun{
     Sun(map<string, int> config, const FloatRect bg_bound);
     void render(RenderWindow& window);
     void update();
-
+    void mouse_press(int x, int y);
     private:
     map<string, int> config;
     FloatRect bg_bound;

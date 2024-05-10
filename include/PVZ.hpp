@@ -5,13 +5,6 @@
 #include "Defs.hpp"
 #include "Battle.hpp"
 
-enum State {
-  BATTLE,
-  Starting,
-  VICTORY,
-  GAMEOVER,
-  EXIT
-};
 
 class PVZ{
     public:

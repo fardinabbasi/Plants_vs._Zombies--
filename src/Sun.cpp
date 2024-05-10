@@ -49,4 +49,17 @@ void Sun::update(){
         new_sun.setPosition(Vector2f(dis(gen), 0));
         suns.push_back(new_sun);
     }
+    deck_txt.setString(to_string(sun_budget));
+}
+
+void Sun::mouse_press(int x, int y){
+    auto it = suns.begin();
+    while(it != suns.end()){
+        if (it->getGlobalBounds().contains(Vector2f(x,y))){
+            sun_budget += 1;
+            suns.erase(it);
+            break;
+        }
+        it++;
+    }
 }

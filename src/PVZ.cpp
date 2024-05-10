@@ -6,7 +6,7 @@ battle(config), victory_screen("Victory.jpg", "Victory.ogg"), lose_screen("GameO
 {
     window.create(VideoMode(WINDOW_WIDTH ,WINDOW_HEIGHT), "PVZ", Style::Close);
     window.setFramerateLimit(FRAME_RATE);
-    state = Starting;
+    state = STARTING;
 }
 
 void PVZ::run(){
@@ -15,7 +15,7 @@ void PVZ::run(){
         event_handler();
         switch (state)
         {
-        case Starting:
+        case STARTING:
             menu.render(window);
             break;
         case BATTLE:
@@ -44,11 +44,11 @@ void PVZ::event_handler(){
         else if(event.type == Event::MouseButtonPressed && event.mouseButton.button == Mouse::Left){
             switch (state)
             {
-            case Starting:
-                if(menu.start_button(Mouse::getPosition(window)))
-                    state = BATTLE;
+            case STARTING:
+                state = menu.mouse_press(event.mouseButton.x, event.mouseButton.y);
                 break;
             case BATTLE:
+                state = battle.mouse_press(event.mouseButton.x, event.mouseButton.y);
                 break;
             default:
                 break;

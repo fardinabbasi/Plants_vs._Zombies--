@@ -19,4 +19,13 @@ const string IMAGES_PATH = "./assets/images/";
 const string MUSIC_PATH = "./assets/musics/";
 const string FONTS_PATH = "./assets/fonts/";
 
+enum State {
+  BATTLE,
+  STARTING,
+  VICTORY,
+  GAMEOVER,
+  EXIT
+};
+
+
 #endif
