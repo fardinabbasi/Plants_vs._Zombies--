@@ -8,6 +8,7 @@ config(config), BaseScreen("BackGround.png", "Loonboon.ogg")
 }
 
 void Battle::render(RenderWindow &window){
+    update();
     if(music.getStatus() != Music::Playing)
         music.play();
     window.draw(background_sp);

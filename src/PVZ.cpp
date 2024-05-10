@@ -54,5 +54,14 @@ void PVZ::event_handler(){
                 break;
             }
         }
+        else if(event.type == Event::MouseButtonReleased){
+            switch (state)
+            {
+            case BATTLE:
+                break;
+            default:
+                break;
+            }
+        }
     }
 }

@@ -4,9 +4,9 @@ Sun::Sun(map<string, int> config, const FloatRect bg_bound):
 config(config), bg_bound(bg_bound), gen(SEED)
 {
     if(config.contains("StartingNum"))
-        sun_budget = config["StartingNum"];
+        budget = config["StartingNum"];
     else
-        sun_budget = 0;
+        budget = 0;
     if (!sun_tex.loadFromFile(IMAGES_PATH + "Sun.png")) {
         cerr << FILE_FAILED_MESSAGE << endl;
     }
@@ -21,7 +21,7 @@ config(config), bg_bound(bg_bound), gen(SEED)
     deck_sp.setScale(0.25, 0.25);
     
     deck_txt.setFont(font);
-    deck_txt.setString(to_string(sun_budget));
+    deck_txt.setString(to_string(budget));
     deck_txt.setFillColor(Color::Black);
     deck_txt.setPosition(Vector2f(bg_bound.left+170, bg_bound.top+50));
 
@@ -48,17 +48,18 @@ void Sun::update(){
         new_sun.setPosition(Vector2f(dis(gen), 0));
         suns.push_back(new_sun);
     }
-    deck_txt.setString(to_string(sun_budget));
+    deck_txt.setString(to_string(budget));
 }
 
 void Sun::mouse_press(int x, int y){
     auto it = suns.begin();
     while(it != suns.end()){
         if (it->getGlobalBounds().contains(Vector2f(x,y))){
-            sun_budget += 1;
+            budget++;
             suns.erase(it);
             break;
         }
-        it++;
+        else
+            it++;
     }
 }
