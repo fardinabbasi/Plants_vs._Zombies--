@@ -29,6 +29,7 @@ config(config), bg_bound(bg_bound)
 }
 
 void Sun::render(RenderWindow &window){
+    update();
     window.draw(deck_sp);
     for (auto&sun:suns){
         window.draw(sun);
