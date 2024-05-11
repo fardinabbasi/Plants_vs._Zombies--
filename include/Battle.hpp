@@ -18,7 +18,7 @@ class Battle: public BaseScreen{
     void update();
     void find_target();
     void attack();
-    void Battle::make_zombies();
+    void make_zombies();
     private:
     map<string, map<string, int>> config;
     Sun* sun;
