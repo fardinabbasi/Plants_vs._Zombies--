@@ -13,6 +13,7 @@ class BaseZombie{
     bool dead();
     bool win();
     float get_height();
+    float get_width();
     void render(RenderWindow &window);
     
     private:
