@@ -51,7 +51,7 @@ void PVZ::event_handler(){
                     state = BATTLE;
                 break;
             case BATTLE:
-                cout<<"IM HERE!"<<endl;
+                // cout<<"IM HERE!"<<endl;
                 battle.event_handler(window, event);
                 break;
             default:
