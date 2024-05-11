@@ -35,9 +35,6 @@ void Battle::update(){
     sun->update();
     attack();
     find_target();
-    for_each(zombies.begin(), zombies.end(), [](BaseZombie* zombie){ zombie->update(); });
-
-
 }
 
 void Battle::find_target(){

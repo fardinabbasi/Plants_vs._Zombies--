@@ -60,5 +60,6 @@ float BaseZombie::get_height(){
 }
 
 void BaseZombie::render(RenderWindow &window){
+    update();
     window.draw(sprite);
 }
