@@ -15,17 +15,24 @@ config(config), bg_bound(bg_bound)
     uniform_int_distribution<int> dis(0, HEIGHT_GRIDS.size());
     
     sprite.setPosition(bg_bound.left+bg_bound.width, HEIGHT_GRIDS[dis(gen)]);
-    clock.restart();
+    hit.restart();
+
 }
 
 void BaseZombie::update(){
+    float speed;
+    if(cool_penalty.getElapsedTime().asSeconds() >= COOL_TIME)
+        speed = config["Speed"];
+    else
+        speed = config["Speed"]/2;
+
     if (plant == nullptr)
-        sprite.move(Vector2f(-config["Speed"], 0));
+        sprite.move(Vector2f(-speed, 0));
     else{
-        if(clock.getElapsedTime().asSeconds() >= config["HitRate"]){
+        if(hit.getElapsedTime().asSeconds() >= config["HitRate"]){
             plant->hurt(config["Damage"]);
             plant = plant->dead()? nullptr: plant;
-            clock.restart();
+            hit.restart();
         }
     }
 }
@@ -35,22 +42,19 @@ void BaseZombie::set_target(Plant* p){
         plant = p;
 }
 
-void BaseZombie::hurt(unsigned int damage){
+void BaseZombie::hurt(unsigned int damage, bool cool){
     health -= damage;
+    if(cool){
+        cool_penalty.restart();
+    }
 }
 
 bool BaseZombie::dead(){
-    if (health <= 0)
-        return true;
-    else
-        return false;
+    return health <= 0;
 }
 
 bool BaseZombie::win(){
-    if(sprite.getGlobalBounds().left <= (WIDTH_GRIDS.front() - 5))
-        return true;
-    else
-        return false;
+    return sprite.getGlobalBounds().left <= (WIDTH_GRIDS.front() - 5);
 }
 
 float BaseZombie::get_height(){

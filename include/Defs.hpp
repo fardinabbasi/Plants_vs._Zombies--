@@ -16,6 +16,7 @@ using namespace std;
 #define WINDOW_HEIGHT 720
 #define FRAME_RATE 60
 #define GARGANTUAR_RATIO 0.25
+#define COOL_TIME 5
 
 const string IMAGES_PATH = "./assets/images/";
 const string MUSIC_PATH = "./assets/musics/";
