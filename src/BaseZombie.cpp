@@ -28,12 +28,10 @@ void BaseZombie::update(){
 
     if (plant == nullptr)
         sprite.move(Vector2f(-speed, 0));
-    else{
-        if(hit.getElapsedTime().asSeconds() >= config["HitRate"]){
+    else if(hit.getElapsedTime().asSeconds() >= config["HitRate"]){
             plant->hurt(config["Damage"]);
             plant = plant->dead()? nullptr: plant;
             hit.restart();
-        }
     }
 }
 
