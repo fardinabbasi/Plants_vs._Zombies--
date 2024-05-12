@@ -5,12 +5,8 @@
 #include "BaseScreen.hpp"
 #include "Sun.hpp"
 #include "Plant.hpp"
-
-struct GridInfo 
-{
-    Vector2f plant_position;
-    Vector2i grid_position;
-};
+#include <vector>
+#include <cmath>
 
 class Battle: public BaseScreen
 {
@@ -19,8 +15,8 @@ class Battle: public BaseScreen
     ~Battle();
     void render(RenderWindow& window);//will override
     void event_handler(RenderWindow& window, Event& event);
-    void add_plant(const string& type, const GridInfo& position);
-    GridInfo find_position(const string& type,const Vector2f& position);
+    void add_plant(const string& type, const Vector2f& position);
+    Vector2f find_position(const string& type,const Vector2f& position);
     
     private:
     map<string, map<string, int>> config;

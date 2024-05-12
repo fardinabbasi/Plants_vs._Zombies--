@@ -1,4 +1,20 @@
 #include "Battle.hpp"
+unsigned int find_nearest(const vector<unsigned int>& vec, unsigned int value) 
+{
+   
+    unsigned int closest = vec[0]; 
+    unsigned int min_difference = abs(static_cast<int>(value) - static_cast<int>(vec[0])); 
+    for (unsigned int element : vec) 
+    {
+        unsigned int difference = abs(static_cast<int>(value) - static_cast<int>(element));
+        if (difference < min_difference) 
+        {
+            closest = element;
+            min_difference = difference;
+        }
+    }
+    return closest;
+}
 Battle::Battle(map<string, map<string, int>>& config): 
 config(config), BaseScreen("Background.png", "Loonboon.ogg")
 {
@@ -109,9 +125,9 @@ void Battle::event_handler(RenderWindow& window, Event& event)
             {
 
                 Vector2f world_pos = window.mapPixelToCoords(mousePos);
-                GridInfo plant_info = find_position(selected_plant,world_pos);
+                Vector2f plant_pos = find_position(selected_plant,world_pos);
 
-                add_plant(selected_plant, plant_info);
+                add_plant(selected_plant, plant_pos);
             }
             //cout<<"IM HERE5555!"<<endl;
             is_dragging = false;
@@ -120,29 +136,21 @@ void Battle::event_handler(RenderWindow& window, Event& event)
     }
 }
 
-void Battle::add_plant(const string& type, const GridInfo& position) 
+void Battle::add_plant(const string& type, const Vector2f& position) 
 {
-    Plant* new_plant = new Plant(config["PeaShooter"],"PeaShooter.png",background_sp.getGlobalBounds(),position.plant_position);
+    Plant* new_plant = new Plant(config["PeaShooter"],"PeaShooter.png",background_sp.getGlobalBounds(),position);
     plants.push_back(new_plant);
-    block_occupied[position.grid_position] = new_plant;
+    block_occupied[position] = new_plant;
 }
 
-GridInfo Battle::find_position(const string& type,const Vector2f& position) 
+Vector2f Battle::find_position(const string& type,const Vector2f& position) 
 {
-
-    float block_width = (GRID_BOTTOM_RIGHT.x - GRID_TOP_LEFT.x) / NUM_COLS;
-    float block_height = (GRID_BOTTOM_RIGHT.y - GRID_TOP_LEFT.y) / NUM_ROWS;
-    int grid_x = static_cast<int>((position.x - GRID_TOP_LEFT.x) / block_width);
-    int grid_y= static_cast<int>((position.y - GRID_TOP_LEFT.y) / block_height);
-    Vector2i grid_position(grid_x, grid_y);
-
-    if (grid_x >= 0 && grid_x < NUM_COLS && grid_y >= 0 && grid_y < NUM_ROWS &&
-        block_occupied.find(grid_position) == block_occupied.end()) 
+    unsigned int grid_x = find_nearest(WIDTH_GRIDS,position.x);
+    unsigned int grid_y = find_nearest(HEIGHT_GRIDS,position.y);
+    Vector2i grid_position(grid_x + background_sp.getGlobalBounds().left , grid_y + background_sp.getGlobalBounds().top);
+    if (block_occupied.find(grid_position) == block_occupied.end()) 
     {
-        float center_x = GRID_TOP_LEFT.x + (grid_x + 0.5f) * block_width;
-        float center_y= GRID_TOP_LEFT.y + (grid_y + 0.5f) * block_height;
-        Vector2f plant_position(center_x, center_y);
-        return {plant_position, grid_position};
+        return grid_position;
     }
 }
 
