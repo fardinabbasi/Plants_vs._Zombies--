@@ -17,15 +17,13 @@ using namespace std;
 #define SEED 456
 #define MIN_X 0
 #define MIN_Y 0
-#define NUM_COLS 9
+//#define NUM_COLS 9
 #define NUM_ROWS 5
 
+const unsigned int NUM_COLS = 9;
 const string IMAGES_PATH = "./assets/images/";
 const string MUSIC_PATH = "./assets/musics/";
 const string FONTS_PATH = "./assets/fonts/";
-const Vector2f GRID_TOP_LEFT = {256.0f, 80.0f};     
-const Vector2f GRID_BOTTOM_RIGHT = {1000.0f, 575.0f};
-
 const vector<unsigned int> WIDTH_GRIDS = {
   295, 370, 453, 530, 620, 700, 780, 855, 940
 };

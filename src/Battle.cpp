@@ -140,17 +140,24 @@ void Battle::add_plant(const string& type, const Vector2f& position)
 {
     Plant* new_plant = new Plant(config["PeaShooter"],"PeaShooter.png",background_sp.getGlobalBounds(),position);
     plants.push_back(new_plant);
-    block_occupied[position] = new_plant;
 }
 
 Vector2f Battle::find_position(const string& type,const Vector2f& position) 
 {
     unsigned int grid_x = find_nearest(WIDTH_GRIDS,position.x);
     unsigned int grid_y = find_nearest(HEIGHT_GRIDS,position.y);
-    Vector2i grid_position(grid_x + background_sp.getGlobalBounds().left , grid_y + background_sp.getGlobalBounds().top);
-    if (block_occupied.find(grid_position) == block_occupied.end()) 
+    auto x_index = find(WIDTH_GRIDS.begin(), WIDTH_GRIDS.end(), grid_x);
+    size_t x_pos = distance(WIDTH_GRIDS.begin(), x_index);
+    auto y_index = find(HEIGHT_GRIDS.begin(), HEIGHT_GRIDS.end(), grid_y);
+    size_t y_pos = distance(HEIGHT_GRIDS.begin(), y_index);
+    int grid_num = y_pos * NUM_COLS + x_pos;
+
+    Vector2i grid_position(grid_x , grid_y );
+
+    if (block_occupied.find(grid_num) == block_occupied.end()) 
     {
-        return grid_position;
+        return Vector2f(static_cast<float>(grid_position.x), static_cast<float>(grid_position.y));
+        block_occupied[grid_num] = true;
     }
 }
 

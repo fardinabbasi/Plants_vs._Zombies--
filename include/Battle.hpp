@@ -7,6 +7,7 @@
 #include "Plant.hpp"
 #include <vector>
 #include <cmath>
+#include <algorithm>
 
 class Battle: public BaseScreen
 {
@@ -25,7 +26,7 @@ class Battle: public BaseScreen
     Sprite pea_shooter_sp;
     Texture pea_shooter_tex;
     bool is_dragging;
-    map<Vector2i, Plant*> block_occupied;
+    map<int, bool> block_occupied;
     string selected_plant;
     Sprite snowy_pea_sp;
     Texture snowy_pea_tex;
