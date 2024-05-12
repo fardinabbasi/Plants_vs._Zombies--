@@ -14,6 +14,7 @@ class BaseZombie{
     bool win();
     float get_height();
     float get_width();
+    int get_speed();
     void render(RenderWindow &window);
     
     private:

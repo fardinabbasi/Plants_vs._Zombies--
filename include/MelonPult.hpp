@@ -7,14 +7,17 @@
 
 class MelonPult: public Plant{
     public:
-    MelonPult(map<string, int> config, string tex_path); //background is set in parent
+    MelonPult(string melon_path); 
     void update();
+    void set_target(BaseZombie* z);
+
     private:
+    float curve_coeff;
+    list<float> clac_trajectory(int start_p, int start_z);
     BaseZombie* zombie;
-    Texture melon;
+    Texture melon_tex;
     Sprite melon;
-    list<Sprite> melons;
-    //parent has clock
+    list<pair<Sprite, list<float>>> melons;
 };
 
 #endif

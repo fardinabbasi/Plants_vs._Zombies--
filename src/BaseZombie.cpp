@@ -63,6 +63,10 @@ float BaseZombie::get_width(){
     return sprite.getGlobalBounds().left;
 }
 
+int BaseZombie::get_speed(){
+    return config["speed"];
+}
+
 void BaseZombie::render(RenderWindow &window){
     update();
     window.draw(sprite);
