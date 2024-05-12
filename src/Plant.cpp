@@ -27,6 +27,7 @@ Plant::Plant(map<string, int> config,string plant_tex_file,const FloatRect bg_bo
 
     plant_sp.setTexture(plant_tex);
     plant_sp.setTextureRect(subrect);
+    
     plant_sp.setScale(0.25, 0.25);
     plant_sp.setPosition(position);
 

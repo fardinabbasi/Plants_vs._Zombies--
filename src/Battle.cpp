@@ -124,8 +124,9 @@ void Battle::event_handler(RenderWindow& window, Event& event)
                mousePos.y >= MIN_Y && mousePos.y <= WINDOW_HEIGHT) 
             {
 
-                Vector2f world_pos = window.mapPixelToCoords(mousePos);
-                Vector2f plant_pos = find_position(selected_plant,world_pos);
+                //Vector2f world_pos = window.mapPixelToCoords(mousePos);
+                Vector2f float_pos(static_cast<float>(mousePos.x), static_cast<float>(mousePos.y));
+                Vector2f plant_pos = find_position(selected_plant,float_pos);
 
                 add_plant(selected_plant, plant_pos);
             }
@@ -152,7 +153,8 @@ Vector2f Battle::find_position(const string& type,const Vector2f& position)
     size_t y_pos = distance(HEIGHT_GRIDS.begin(), y_index);
     int grid_num = y_pos * NUM_COLS + x_pos;
 
-    Vector2i grid_position(grid_x , grid_y );
+    Vector2i grid_position(background_sp.getGlobalBounds().left+grid_x , background_sp.getGlobalBounds().top+grid_y );
+    cout<<"x"<< grid_position.x<<"y"<<grid_position.y<<endl;
 
     if (block_occupied.find(grid_num) == block_occupied.end()) 
     {
