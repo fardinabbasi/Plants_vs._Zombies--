@@ -12,9 +12,9 @@ config(config), bg_bound(bg_bound)
 
     random_device rd;
     mt19937 gen(rd());
-    uniform_int_distribution<int> dis(0, HEIGHT_GRIDS.size());
-    
-    sprite.setPosition(bg_bound.left+bg_bound.width, HEIGHT_GRIDS[dis(gen)]);
+    uniform_int_distribution<int> dis1(0, HEIGHT_GRIDS.size());
+    uniform_int_distribution<int> dis2(0, 300);
+    sprite.setPosition(bg_bound.left+bg_bound.width-dis2(gen), HEIGHT_GRIDS[dis1(gen)]);
     hit.restart();
 
 }
@@ -57,6 +57,10 @@ bool BaseZombie::win(){
 
 float BaseZombie::get_height(){
     return sprite.getGlobalBounds().top;
+}
+
+float BaseZombie::get_width(){
+    return sprite.getGlobalBounds().left;
 }
 
 void BaseZombie::render(RenderWindow &window){

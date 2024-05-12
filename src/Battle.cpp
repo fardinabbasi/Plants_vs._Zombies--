@@ -31,8 +31,6 @@ Battle::~Battle(){
 }
 
 void Battle::update(){
-
-    sun->update();
     attack();
     find_target();
 }

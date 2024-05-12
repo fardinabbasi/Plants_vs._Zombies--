@@ -13,7 +13,9 @@ class BaseZombie{
     bool dead();
     bool win();
     float get_height();
+    float get_width();
     void render(RenderWindow &window);
+    
     private:
     void update();
     const FloatRect bg_bound;
