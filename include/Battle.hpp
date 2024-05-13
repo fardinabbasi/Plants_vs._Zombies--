@@ -18,6 +18,8 @@ class Battle: public BaseScreen
     void event_handler(RenderWindow& window, Event& event);
     void add_plant(const string& type, const Vector2f& position);
     Vector2f find_position(const string& type,const Vector2f& position);
+    unsigned int find_nearest(const vector<unsigned int>& vec, unsigned int value,int drift);
+
     
     private:
     map<string, map<string, int>> config;

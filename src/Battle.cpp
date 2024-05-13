@@ -1,20 +1,4 @@
 #include "Battle.hpp"
-unsigned int find_nearest(const vector<unsigned int>& vec, unsigned int value) 
-{
-   
-    unsigned int closest = vec[0]; 
-    unsigned int min_difference = abs(static_cast<int>(value) - static_cast<int>(vec[0])); 
-    for (unsigned int element : vec) 
-    {
-        unsigned int difference = abs(static_cast<int>(value) - static_cast<int>(element));
-        if (difference < min_difference) 
-        {
-            closest = element;
-            min_difference = difference;
-        }
-    }
-    return closest;
-}
 Battle::Battle(map<string, map<string, int>>& config): 
 config(config), BaseScreen("Background.png", "Loonboon.ogg")
 {
@@ -124,8 +108,8 @@ void Battle::event_handler(RenderWindow& window, Event& event)
                mousePos.y >= MIN_Y && mousePos.y <= WINDOW_HEIGHT) 
             {
 
-                //Vector2f world_pos = window.mapPixelToCoords(mousePos);
                 Vector2f float_pos(static_cast<float>(mousePos.x), static_cast<float>(mousePos.y));
+                cout<<"mous pose x is:"<< float_pos.x<<"mouse pose y is :"<<float_pos.y<<endl;
                 Vector2f plant_pos = find_position(selected_plant,float_pos);
 
                 add_plant(selected_plant, plant_pos);
@@ -143,22 +127,43 @@ void Battle::add_plant(const string& type, const Vector2f& position)
     plants.push_back(new_plant);
 }
 
+unsigned int Battle::find_nearest(const vector<unsigned int>& vec, unsigned int value,int drift) 
+{
+   
+    unsigned int closest = vec[0]; 
+    unsigned int min_difference = abs(static_cast<int>(value- drift) - static_cast<int>(vec[0])); 
+    for (unsigned int element : vec) 
+    {
+        unsigned int difference = abs(static_cast<int>(value - drift) - static_cast<int>(element));
+        if (difference <= min_difference) 
+        {
+            closest = element;
+            min_difference = difference;
+        }
+    }
+    return closest;
+}
+
 Vector2f Battle::find_position(const string& type,const Vector2f& position) 
 {
-    unsigned int grid_x = find_nearest(WIDTH_GRIDS,position.x);
-    unsigned int grid_y = find_nearest(HEIGHT_GRIDS,position.y);
+    unsigned int grid_x = find_nearest(WIDTH_GRIDS,position.x, background_sp.getGlobalBounds().left);
+    unsigned int grid_y = find_nearest(HEIGHT_GRIDS,position.y,background_sp.getGlobalBounds().top);
+
+    cout<<"x is :"<< grid_x<<" y is:"<<grid_y<<endl;
+
     auto x_index = find(WIDTH_GRIDS.begin(), WIDTH_GRIDS.end(), grid_x);
     size_t x_pos = distance(WIDTH_GRIDS.begin(), x_index);
+
     auto y_index = find(HEIGHT_GRIDS.begin(), HEIGHT_GRIDS.end(), grid_y);
     size_t y_pos = distance(HEIGHT_GRIDS.begin(), y_index);
     int grid_num = y_pos * NUM_COLS + x_pos;
-
-    Vector2i grid_position(background_sp.getGlobalBounds().left+grid_x , background_sp.getGlobalBounds().top+grid_y );
+    cout<<"backx"<<background_sp.getGlobalBounds().left<<endl;
+    Vector2f grid_position(static_cast<float>(grid_x) , static_cast<float>(background_sp.getGlobalBounds().top+grid_y ));
     cout<<"x"<< grid_position.x<<"y"<<grid_position.y<<endl;
 
     if (block_occupied.find(grid_num) == block_occupied.end()) 
     {
-        return Vector2f(static_cast<float>(grid_position.x), static_cast<float>(grid_position.y));
+        return grid_position;
         block_occupied[grid_num] = true;
     }
 }

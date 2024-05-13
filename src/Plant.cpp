@@ -27,9 +27,10 @@ Plant::Plant(map<string, int> config,string plant_tex_file,const FloatRect bg_bo
 
     plant_sp.setTexture(plant_tex);
     plant_sp.setTextureRect(subrect);
-    
+
     plant_sp.setScale(0.25, 0.25);
     plant_sp.setPosition(position);
+    plant_sp.setOrigin((sf::Vector2f)plant_tex.getSize() / 2.f);
 
     //deck_txt.setString(to_string(sun_budget));
     //deck_txt.setFillColor(Color::Black);
