@@ -7,7 +7,6 @@ Plant::Plant(map<string, int> config,string plant_tex_file,const Vector2f& posit
     this-> health = config["Health"];
     this-> hit_rate = config["HitRat"];
     this-> speed = static_cast<float>(config["Speed"]);
-    //this-> cool_down = milliseconds(config["cool_down"]);
     this-> price = config["Price"];
     if (!plant_tex.loadFromFile(IMAGES_PATH + plant_tex_file)) 
     {
@@ -19,30 +18,26 @@ Plant::Plant(map<string, int> config,string plant_tex_file,const Vector2f& posit
     }
 
     IntRect subrect(0, 0, 350, 325);
-    // deck_sp.setTexture(plant_tex);
-    // deck_sp.setTextureRect(subrect);
-    // deck_sp.setPosition(bg_bound.left+70, bg_bound.top+30);//later change
-    // deck_sp.setScale(0.25, 0.25);
-    // deck_txt.setFont(font);
-
     plant_sp.setTexture(plant_tex);
     plant_sp.setTextureRect(subrect);
     plant_sp.setOrigin((Vector2f)plant_tex.getSize() / 2.f);
     plant_sp.setScale(0.25, 0.25);
     plant_sp.setPosition(position);
-
-    //deck_txt.setString(to_string(sun_budget));
-    //deck_txt.setFillColor(Color::Black);
-    //deck_txt.setPosition(Vector2f(bg_bound.left+170, bg_bound.top+50));//later change
+    attack_clock.reset();
 
 }
 
 void Plant::render(RenderWindow &window)
 {
-    //update();
-    //window.draw(deck_sp);
-    // for (auto&sun:suns){
-    //     window.draw(sun);
-    // }
     window.draw(plant_sp);
+}
+
+bool Plant::dead()
+{
+    return (health <= 0);
+}
+
+void Plant::hurt(unsigned int damage)
+{
+    health -= damage;
 }
