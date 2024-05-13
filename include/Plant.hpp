@@ -25,7 +25,7 @@ class Plant
     int health;
     int hit_rate;
     float speed;
-    Time cool_down;
+    //Time hit_rate;
     int price;
     Clock attack_clock;
     Vector2f position;

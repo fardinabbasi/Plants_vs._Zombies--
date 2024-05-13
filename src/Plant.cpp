@@ -3,12 +3,12 @@
 Plant::Plant(map<string, int> config,string plant_tex_file,const FloatRect bg_bound,const Vector2f& position)
 {
     this-> position = position;
-    this-> damage = config["damage"];
-    this-> health = config["health"];
-    this-> hit_rate = config["hit_rat"];
-    this-> speed = static_cast<float>(config["speed"]);
-    this-> cool_down = milliseconds(config["cool_down"]);
-    this-> price = config["price"];
+    this-> damage = config["Damage"];
+    this-> health = config["Health"];
+    this-> hit_rate = config["HitRat"];
+    this-> speed = static_cast<float>(config["Speed"]);
+    //this-> cool_down = milliseconds(config["cool_down"]);
+    this-> price = config["Price"];
     if (!plant_tex.loadFromFile(IMAGES_PATH + plant_tex_file)) 
     {
         cerr << FILE_FAILED_MESSAGE << endl;
@@ -27,10 +27,9 @@ Plant::Plant(map<string, int> config,string plant_tex_file,const FloatRect bg_bo
 
     plant_sp.setTexture(plant_tex);
     plant_sp.setTextureRect(subrect);
-
+    plant_sp.setOrigin((Vector2f)plant_tex.getSize() / 2.f);
     plant_sp.setScale(0.25, 0.25);
     plant_sp.setPosition(position);
-    plant_sp.setOrigin((sf::Vector2f)plant_tex.getSize() / 2.f);
 
     //deck_txt.setString(to_string(sun_budget));
     //deck_txt.setFillColor(Color::Black);

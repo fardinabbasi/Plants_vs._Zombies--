@@ -3,6 +3,7 @@ Battle::Battle(map<string, map<string, int>>& config):
 config(config), BaseScreen("Background.png", "Loonboon.ogg")
 {
     is_dragging = false;
+
     sun = new Sun(config["Sun"], background_sp.getGlobalBounds());
     if(!pea_shooter_tex.loadFromFile(IMAGES_PATH + "PeaShooter.png"))
     {
@@ -43,11 +44,27 @@ config(config), BaseScreen("Background.png", "Loonboon.ogg")
     peanut_sp.setTextureRect(peanutRect);
     peanut_sp.setScale(0.7, 0.7);
     peanut_sp.setPosition(background_sp.getGlobalBounds().left+80, background_sp.getGlobalBounds().top+430);
+    cool_downs["PeaShooter"].restart(); 
+    cool_downs["SnowPea"].restart(); 
+    cool_downs["Sunflower"].restart(); 
+    cool_downs["Walnut"].restart();
  
+}
+
+void Battle::update_cooldowns() 
+{
+    for (auto& pair : cool_downs) 
+    {
+        if (pair.second.getElapsedTime().asMilliseconds() >= config[pair.first]["Cooldown"]) 
+        {
+
+        }
+    }
 }
 
 void Battle::render(RenderWindow &window)
 {
+
     if(music.getStatus() != Music::Playing)
         music.play();
     window.draw(background_sp);
@@ -61,10 +78,12 @@ void Battle::render(RenderWindow &window)
         plant->render(window);
     }
     window.display();
+
     
 }
 
-Battle::~Battle(){
+Battle::~Battle()
+{
     delete sun;
 }
 
@@ -77,30 +96,32 @@ void Battle::event_handler(RenderWindow& window, Event& event)
         if (pea_shooter_sp.getGlobalBounds().contains(mousePos.x, mousePos.y)) 
         {
             is_dragging = true;
-            selected_plant = "pea_shooter";
+            selected_plant = "PeaShooter";
+
             //cout<<"IM HERE111!"<<endl;
         } 
         else if (snowy_pea_sp.getGlobalBounds().contains(mousePos.x, mousePos.y)) 
         {
             is_dragging = true;
-            selected_plant = "snow_shooter";
+            selected_plant = "SnowPea";
             //cout<<"IM HERE2222!"<<endl;
         } 
         else if (sun_flower_sp.getGlobalBounds().contains(mousePos.x, mousePos.y)) 
         {
             is_dragging = true;
-            selected_plant = "sun_flower";
+            selected_plant = "Sunflower";
             //cout<<"IM HERE3333!"<<endl;
         } 
         else if (peanut_sp.getGlobalBounds().contains(mousePos.x, mousePos.y)) 
         {
             is_dragging = true;
-            selected_plant = "peanut";
+            selected_plant = "Walnut";
             //cout<<"IM HERE44444!"<<endl;
         }
     } 
     else if (event.type == Event::MouseButtonReleased) 
     {
+    
         if (is_dragging) 
         {
             Vector2i mousePos = Mouse::getPosition(window);
@@ -123,7 +144,7 @@ void Battle::event_handler(RenderWindow& window, Event& event)
 
 void Battle::add_plant(const string& type, const Vector2f& position) 
 {
-    Plant* new_plant = new Plant(config["PeaShooter"],"PeaShooter.png",background_sp.getGlobalBounds(),position);
+    Plant* new_plant = new Plant(config[type],type+ ".png",background_sp.getGlobalBounds(),position);
     plants.push_back(new_plant);
 }
 
@@ -158,7 +179,7 @@ Vector2f Battle::find_position(const string& type,const Vector2f& position)
     size_t y_pos = distance(HEIGHT_GRIDS.begin(), y_index);
     int grid_num = y_pos * NUM_COLS + x_pos;
     cout<<"backx"<<background_sp.getGlobalBounds().left<<endl;
-    Vector2f grid_position(static_cast<float>(grid_x) , static_cast<float>(background_sp.getGlobalBounds().top+grid_y ));
+    Vector2f grid_position(static_cast<float>(grid_x+background_sp.getGlobalBounds().left) , static_cast<float>(background_sp.getGlobalBounds().top+grid_y ));
     cout<<"x"<< grid_position.x<<"y"<<grid_position.y<<endl;
 
     if (block_occupied.find(grid_num) == block_occupied.end()) 
@@ -166,5 +187,9 @@ Vector2f Battle::find_position(const string& type,const Vector2f& position)
         return grid_position;
         block_occupied[grid_num] = true;
     }
+    // else
+    // {
+    //     return nullopt;
+    // }
 }
 

@@ -8,6 +8,7 @@
 #include <vector>
 #include <cmath>
 #include <algorithm>
+#include <optional>
 
 class Battle: public BaseScreen
 {
@@ -23,6 +24,8 @@ class Battle: public BaseScreen
     
     private:
     map<string, map<string, int>> config;
+    map<string ,Time> cool_down_time;
+    map<string ,Clock> cool_downs;
     Sun* sun;
     list<Plant*> plants;
     Sprite pea_shooter_sp;
