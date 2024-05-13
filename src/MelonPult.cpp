@@ -8,7 +8,7 @@ MelonPult::MelonPult(string melon_path){
         cerr << FILE_FAILED_MESSAGE << endl;
     }
     melon.setTexture(melon_tex);
-    melon.setOrigin((sf::Vector2f)melon_tex.getSize() / 2.f);
+    melon.setOrigin((Vector2f)melon_tex.getSize() / 2.f);
     melon.setPosition(plant_sp.getGlobalBounds().left+2, plant_sp.getGlobalBounds().height+5);
 
 }
@@ -47,9 +47,8 @@ list<float> MelonPult::clac_trajectory(int start_p, int start_z){
     int collision_time = (start_z - start_p) / (config["Speed"] + zombie->get_speed());
     list<float> trajectory = {0};
     int collision_width = start_p + config["Speed"]*collision_time;
-    float step_size = config["Speed"]*collision_time / collision_time;
     for (int i = 0; i < collision_time; i++){
-        float x = start_p + i * step_size;
+        float x = start_p + i * config["Speed"];
         float relative_offset = (curve_coeff * (x - start_p) * (x - collision_width)) - trajectory.back();
         trajectory.push_back(relative_offset);
     }

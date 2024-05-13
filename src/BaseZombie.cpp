@@ -8,7 +8,7 @@ config(config), bg_bound(bg_bound)
         cerr << FILE_FAILED_MESSAGE << endl;
     }
     sprite.setTexture(texture);
-    sprite.setOrigin((sf::Vector2f)texture.getSize() / 2.f);
+    sprite.setOrigin((Vector2f)texture.getSize() / 2.f);
 
     random_device rd;
     mt19937 gen(rd());
