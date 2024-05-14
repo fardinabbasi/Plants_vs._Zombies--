@@ -1,5 +1,5 @@
-#include "Deck.hpp"
-Deck::Deck(map<string, int> config,FloatRect bg_bound,string type,int y_ofset, IntRect subrect)
+#include "Card.hpp"
+Card::Card(map<string, int> config,FloatRect bg_bound,string type,int y_ofset, IntRect subrect)
 {
     this->config = config;
     this->type = type;
@@ -25,14 +25,14 @@ Deck::Deck(map<string, int> config,FloatRect bg_bound,string type,int y_ofset, I
     
 }
 
-void Deck::render(RenderWindow &window)
+void Card::render(RenderWindow &window)
 {
     update();
     window.draw(deck_sp);
     window.draw(deck_txt);
 }
 
-void Deck::update()
+void Card::update()
 {
     int remaining_time = (config[type]["Cooldown"]*1000 - cool_down.getElapsedTime().asMilliseconds())/1000;
 
@@ -45,7 +45,23 @@ void Deck::update()
     deck_txt.setString(to_string(remaining_time) + "s")
 }
 
-bool Deck::can_plant_any()
+bool Card::ready()
 {
     return can_plant;
+}
+
+Card::reset()
+{
+    cool_down.restart();
+}
+
+string Card::get_name()
+{
+    return type;
+}
+
+bool Card::contains(int x, int y)
+{
+    FloatRect bounds = deck_sp.getGlobalBounds();
+    return bounds.contains(static_cast<float>(x), static_cast<float>(y));
 }

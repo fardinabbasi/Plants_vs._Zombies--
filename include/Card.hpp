@@ -1,5 +1,5 @@
-#ifndef Decks_HPP
-#define Decks_HPP
+#ifndef CARD_HPP
+#define CARD_HPP
 
 #include <string>
 #include <map>
@@ -8,12 +8,15 @@
 #include <fstream>
 #include "Defs.hpp"
 
-class Deck 
+class Card 
 {
 	public:
 	Deck(map<string, int> config,FloatRect bg_bound,string type,int y_ofset, IntRect subrect);
 	void render(RenderWindow &window);
-	bool can_plant_any();
+	bool contains(int x, int y);
+	string get_name();
+	reset();
+	bool ready();
 	
 	
 	private:

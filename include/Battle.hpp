@@ -7,6 +7,7 @@
 #include "Defs.hpp"
 #include "BaseScreen.hpp"
 #include "Sun.hpp"
+#include "Card.hpp"
 
 
 class Battle: public BaseScreen{
