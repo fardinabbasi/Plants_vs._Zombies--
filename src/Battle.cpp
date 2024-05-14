@@ -1,21 +1,26 @@
 #include "Battle.hpp"
 
-Battle::Battle(map<string, map<string, int>>& config): 
+Battle::Battle(map<string, map<string, float>>& config): 
 config(config), BaseScreen("BackGround.png", "Loonboon.ogg")
 {
-    clock.restart();
-    state = BATTLE;
     sun = new Sun(config["Sun"], background_sp.getGlobalBounds());
     interval = 0;
     chosen_card = nullptr;
 }
 
 State Battle::render(RenderWindow &window){
-    update();
-    if(music.getStatus() != Music::Playing)
+    if(state != BATTLE){
         music.play();
+        music.setLoop(true);
+        attack_clk.restart();
+        state = BATTLE;
+    }
+    update();
     window.draw(background_sp);
     for_each(zombies.begin(), zombies.end(), [&window](BaseZombie* zombie){ zombie->render(window); });
+    for_each(deck.begin(), deck.end(), [&window](Card* card){ card->render(window); });
+    for_each(plants.begin(), plants.end(), [&window](Plant* plant){ plant->render(window); });
+    
     sun->render(window);
     window.display();
     return state;
@@ -23,8 +28,8 @@ State Battle::render(RenderWindow &window){
 
 void Battle::mouse_press(int x, int y){
     if(!sun->mouse_press(x, y)){
-        auto it = find_if(deck.begin(), deck.end(), [x,y](Card* card){ card.contains(x,y) && card.ready();});
-        if(it != deck.end())
+        auto it = find_if(deck.begin(), deck.end(), [x,y](Card* card){ card.contains(x,y); });
+        if(it != deck.end() && it->ready() && sun->spend(it->get_price()))
             chosen_card = *it;
         else
             chosen_card = nullptr;
@@ -60,15 +65,13 @@ Vector2f Battle::find_position(int x, int y){
 }
 
 bool Battle::in_battle_feild(int x, int y){
-    return x >= BATTLE_FIELD.left + background_sp.getGlobalBounds().left
-    && x <= BATTLE_FIELD.left + BATTLE_FIELD.width + background_sp.getGlobalBounds().left
-    && y >= BATTLE_FIELD.top + background_sp.getGlobalBounds().top
-    && y <= BATTLE_FIELD.top + BATTLE_FIELD.height + background_sp.getGlobalBounds().top;
+    return BATTLE_FIELD.contains(x - background_sp.getGlobalBounds().left, y - background_sp.getGlobalBounds().top);
 }
 
 Battle::~Battle(){
     for_each(zombies.begin(), zombies.end(), [](BaseZombie* zombie){ delete zombie; });
     for_each(plants.begin(), plants.end(), [](Plant* plant){ delete plant; });
+    for_each(deck.begin(), deck.end(), [](Card* card){ delete card; });
     delete sun;
 }
 
@@ -90,7 +93,7 @@ void Battle::find_target(){
             if((*zombie_it)->dead()){
                 zombie_it = zombies.erase(zombie_it);
                 continue;
-            }   
+            }
             (*zombie_it)->set_target(*plant_it);
             (*plant_it)->set_target(*zombie_it);
             ++zombie_it;
@@ -100,16 +103,18 @@ void Battle::find_target(){
 }
 
 void Battle::attack(){
-    if(any_of(zombies.begin(), zombies.end(),[](BaseZombie& zombie){ zombie.win(); })){
+    float elapsed = attack_clk.getElapsedTime().asSeconds();
+    if(any_of(zombies.begin(), zombies.end(),[](BaseZombie* zombie){ return zombie->win(); })){
+        music.stop();
         state = GAMEOVER;
         return;
     }
-    else if (clock.getElapsedTime().asSeconds() >= config["Attacks"]["TotalTime"]){
+    else if (elapsed > config["Attacks"]["TotalTime"] && zombies.empty()){
         state = VICTORY;
+        music.stop();
         return;
     }
     unsigned int num_intervals = config["Attacks"]["TotalTime"]/config["Attacks"]["Interval"];
-    float elapsed = clock.getElapsedTime().asSeconds();
     for (unsigned int i = 1; i <= num_intervals; i++){
         if ((i-1)*config["Attacks"]["Interval"] <= elapsed && i*config["Attacks"]["Interval"] > elapsed){
             if(i != interval){

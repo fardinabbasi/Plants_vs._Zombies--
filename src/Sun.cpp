@@ -1,12 +1,11 @@
 #include "Sun.hpp"
 
-Sun::Sun(map<string, int> config, const FloatRect bg_bound):
+Sun::Sun(map<string, float> config, const FloatRect bg_bound):
 config(config), bg_bound(bg_bound)
 {
-    if(config.contains("StartingNum"))
-        budget = config["StartingNum"];
-    else
-        budget = 0;
+
+    budget = config["StartingNum"];
+
     if (!sun_tex.loadFromFile(IMAGES_PATH + "Sun.png")) {
         cerr << FILE_FAILED_MESSAGE << endl;
     }
@@ -14,9 +13,8 @@ config(config), bg_bound(bg_bound)
         cerr << FILE_FAILED_MESSAGE << endl;
     }
 
-    IntRect subrect(0, 0, 350, 325);
     deck_sp.setTexture(sun_tex);
-    deck_sp.setTextureRect(subrect);
+    deck_sp.setTextureRect(SUN_RECT);
     deck_sp.setPosition(bg_bound.left+70, bg_bound.top+30);
     deck_sp.setScale(0.25, 0.25);
     
@@ -24,7 +22,7 @@ config(config), bg_bound(bg_bound)
     deck_txt.setString(to_string(budget));
     deck_txt.setFillColor(Color::Black);
     deck_txt.setPosition(Vector2f(bg_bound.left+170, bg_bound.top+50));
-
+    
     clock.restart();
 }
 
@@ -38,7 +36,7 @@ void Sun::render(RenderWindow &window){
 }
 
 void Sun::update(){
-    unsigned int speed = config["Speed"];
+    float speed = config["Speed"];
     for_each(suns.begin(), suns.end(), [speed](Sprite& sun){ sun.move(0, speed); });
     if (suns.front().getPosition().y >= bg_bound.height)
         suns.pop_front();
@@ -47,7 +45,7 @@ void Sun::update(){
         clock.restart();
         random_device rd;
         mt19937 gen(rd());
-        uniform_int_distribution<int> dis(260, 980);
+        uniform_int_distribution<int> dis(BATTLE_FIELD.left, BATTLE_FIELD.left + BATTLE_FIELD.width);
         Sprite new_sun = deck_sp;
         new_sun.setPosition(Vector2f(dis(gen), 0));
         suns.push_back(new_sun);
@@ -67,4 +65,13 @@ bool Sun::mouse_press(int x, int y){
             ++it;
     }
     return false;
+}
+
+bool Sun::spend(float price){
+    if(budget >= price){
+        budget -= price;
+        return true;
+    }
+    else
+        return false;
 }

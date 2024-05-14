@@ -8,7 +8,7 @@
 
 class PVZ{
     public:
-    PVZ(map<string, map<string, int>> config);
+    PVZ(map<string, map<string, float>> config);
     void run();
     void event_handler();
     

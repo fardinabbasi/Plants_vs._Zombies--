@@ -7,7 +7,7 @@
 
 class BaseZombie{
     public:
-    BaseZombie(map<string, int> config, string tex_path, FloatRect bg_bound);
+    BaseZombie(map<string, float> config, string tex_path, FloatRect bg_bound);
     void set_target(Plant* plant);
     void hurt(unsigned int damage, bool cool = false);
     bool dead();
@@ -23,7 +23,7 @@ class BaseZombie{
     Texture texture;
     Sprite sprite;
     Plant* plant;
-    map<string, int> config;
+    map<string, float> config;
     Clock hit;
     Clock cool_penalty;
 };

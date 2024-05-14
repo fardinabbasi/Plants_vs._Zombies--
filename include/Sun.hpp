@@ -10,15 +10,15 @@
 class Sun{
     public:
     Sun(){};
-    Sun(map<string, int> config, const FloatRect bg_bound);
+    Sun(map<string, float> config, const FloatRect bg_bound);
     void render(RenderWindow& window);
     bool mouse_press(int x, int y);
     void modify_budget(int num) { budget += num; }
-    unsigned int get_budget(){ return budget; }
+    bool spend(float price);
 
     private:
     void update();
-    map<string, int> config;
+    map<string, float> config;
     FloatRect bg_bound;
     unsigned int budget;
     Sprite deck_sp;

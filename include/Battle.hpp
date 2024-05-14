@@ -13,7 +13,7 @@
 
 class Battle: public BaseScreen{
     public:
-    Battle(map<string, map<string, int>>& config);
+    Battle(map<string, map<string, float>>& config);
     ~Battle();
     Vector2f find_position(int x, int y);
     State render(RenderWindow& window);
@@ -26,14 +26,16 @@ class Battle: public BaseScreen{
     
     private:
     bool in_battle_feild(int x, int y);
-    map<string, map<string, int>> config;
+    map<string, map<string, float>> config;
     Sun* sun;
     list<BaseZombie*> zombies;
     list<Plant*> plants;
-    State state;
-    Clock clock;
-    unsigned int interval;
+    list<Card*> deck;
     Card* chosen_card;
+
+    State state;
+    Clock attack_clk;
+    unsigned int interval;
 };
 
 #endif

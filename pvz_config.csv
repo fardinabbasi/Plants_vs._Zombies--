@@ -1,9 +1,9 @@
 ﻿Name,Damage,Health,HitRate,Speed,Cooldown,Price,Interval,StartingNum,IncNum,TotalTime
-Zombie,10,50,5,7,,,,,,
-Gargantuar,20,80,6,5,,,,,,
+Zombie,10,50,5,1,,,,,,
+Gargantuar,20,80,6,0.5,,,,,,
 PeaShooter,5,40,5,7,5,4,,,,
 SnowPea,8,30,5,5,9,6,,,,
 Sunflower,0,30,12,0,10,2,,,,
 Walnut,0,200,0,0,10,2,,,,
-Sun,,,,10,,,10,,,
-Attacks,,,,,,,10,3,1,100
+Sun,,,,1,,,10,,,
+Attacks,,,,,,,15,3,1,100

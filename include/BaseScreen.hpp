@@ -11,10 +11,11 @@ class BaseScreen{
     State render(RenderWindow &window);
     
     protected:
+    State state;
     Texture background_tex;
     Sprite background_sp;
     Music music;
-    State state;
+    bool music_played;
 };
 
 #endif
