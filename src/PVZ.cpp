@@ -50,21 +50,17 @@ void PVZ::event_handler(){
                 state = menu.mouse_press(event.mouseButton.x, event.mouseButton.y);
                 break;
             case BATTLE:
-<<<<<<< HEAD
-                // cout<<"IM HERE!"<<endl;
-                battle.event_handler(window, event);
-=======
                 state = battle.mouse_press(event.mouseButton.x, event.mouseButton.y);
                 break;
             default:
                 break;
             }
         }
-        else if(event.type == Event::MouseButtonReleased){
+        else if(event.type == Event::MouseButtonReleased)
+        {
             switch (state)
             {
             case BATTLE:
->>>>>>> a5db1f83683a8b71d37ff0fab6b8d18e8096fabb
                 break;
             default:
                 break;
