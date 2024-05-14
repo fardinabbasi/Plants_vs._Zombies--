@@ -4,7 +4,7 @@ Battle::Battle(map<string, map<string, float>>& config):
 config(config), BaseScreen("BackGround.png", "Loonboon.ogg")
 {
     sun = new Sun(config["Sun"], background_sp.getGlobalBounds());
-    interval = 0;
+    attack_interval = 0;
     chosen_card = nullptr;
 }
 
@@ -117,8 +117,8 @@ void Battle::attack(){
     unsigned int num_intervals = config["Attacks"]["TotalTime"]/config["Attacks"]["Interval"];
     for (unsigned int i = 1; i <= num_intervals; i++){
         if ((i-1)*config["Attacks"]["Interval"] <= elapsed && i*config["Attacks"]["Interval"] > elapsed){
-            if(i != interval){
-                interval = i;
+            if(i != attack_interval){
+                attack_interval = i;
                 make_zombies();
             }
             break;
@@ -127,7 +127,7 @@ void Battle::attack(){
 }
 
 void Battle::make_zombies(){
-    unsigned int num_zombies = config["Attacks"]["StartingNum"] + (interval-1) * config["Attacks"]["IncNum"];
+    unsigned int num_zombies = config["Attacks"]["StartingNum"] + (attack_interval-1) * config["Attacks"]["IncNum"];
     unsigned int num_gargantuar = num_zombies * GARGANTUAR_RATIO;
     for (unsigned int i = 0; i < num_gargantuar; i++){
         zombies.push_back(new BaseZombie(config["Gargantuar"], "Gargantuar.png", background_sp.getGlobalBounds()));

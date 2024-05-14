@@ -35,7 +35,7 @@ class Battle: public BaseScreen{
 
     State state;
     Clock attack_clk;
-    unsigned int interval;
+    unsigned int attack_interval;
 };
 
 #endif
