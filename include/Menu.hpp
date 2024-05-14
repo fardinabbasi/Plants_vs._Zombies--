@@ -6,7 +6,8 @@
 class Menu: public BaseScreen{
     public:
     Menu();
-    bool start_button(Vector2i mousePos);
+    
+    State mouse_press(int x, int y);
     private:
     RectangleShape button;
 };

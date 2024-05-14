@@ -1,12 +1,12 @@
 #include "Sun.hpp"
 
 Sun::Sun(map<string, int> config, const FloatRect bg_bound):
-config(config), bg_bound(bg_bound), gen(SEED)
+config(config), bg_bound(bg_bound)
 {
     if(config.contains("StartingNum"))
-        sun_budget = config["StartingNum"];
+        budget = config["StartingNum"];
     else
-        sun_budget = 0;
+        budget = 0;
     if (!sun_tex.loadFromFile(IMAGES_PATH + "Sun.png")) {
         cerr << FILE_FAILED_MESSAGE << endl;
     }
@@ -21,7 +21,7 @@ config(config), bg_bound(bg_bound), gen(SEED)
     deck_sp.setScale(0.25, 0.25);
     
     deck_txt.setFont(font);
-    deck_txt.setString(to_string(sun_budget));
+    deck_txt.setString(to_string(budget));
     deck_txt.setFillColor(Color::Black);
     deck_txt.setPosition(Vector2f(bg_bound.left+170, bg_bound.top+50));
 
@@ -38,15 +38,32 @@ void Sun::render(RenderWindow &window){
 }
 
 void Sun::update(){
-    for_each(suns.begin(), suns.end(), [](Sprite& sun){ sun.move(0,1); });
+    unsigned int speed = config["Speed"];
+    for_each(suns.begin(), suns.end(), [speed](Sprite& sun){ sun.move(0, speed); });
     if (suns.front().getPosition().y >= bg_bound.height)
         suns.pop_front();
 
     if(clock.getElapsedTime().asSeconds() >= config["Interval"]){
         clock.restart();
+        random_device rd;
+        mt19937 gen(rd());
         uniform_int_distribution<int> dis(260, 980);
         Sprite new_sun = deck_sp;
         new_sun.setPosition(Vector2f(dis(gen), 0));
         suns.push_back(new_sun);
+    }
+    deck_txt.setString(to_string(budget));
+}
+
+void Sun::mouse_press(int x, int y){
+    auto it = suns.begin();
+    while(it != suns.end()){
+        if (it->getGlobalBounds().contains(Vector2f(x,y))){
+            budget++;
+            it = suns.erase(it);
+            break;
+        }
+        else
+            ++it;
     }
 }

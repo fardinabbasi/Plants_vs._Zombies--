@@ -7,12 +7,12 @@ Menu::Menu(): BaseScreen("StartingScreen.png", "StartingScreen.ogg")
     button.setPosition(bg_bound.left+250, bg_bound.top+550);
 }
 
-bool Menu::start_button(Vector2i mousePos){
+State Menu::mouse_press(int x, int y){
     FloatRect buttonBounds = button.getGlobalBounds();
-    if(buttonBounds.contains(static_cast<Vector2f>(mousePos))){
+    if(buttonBounds.contains(x,y)){
         music.stop();
-        return true;
+        return BATTLE;
     }
     else
-        return false;
+        return STARTING;
 }

@@ -5,20 +5,13 @@
 #include "Defs.hpp"
 #include "Battle.hpp"
 
-enum State {
-  BATTLE,
-  Starting,
-  VICTORY,
-  GAMEOVER,
-  EXIT
-};
 
 class PVZ{
     public:
     PVZ(map<string, map<string, int>> config);
-    //~PVZ();
     void run();
     void event_handler();
+    
     private:
     State state;
     Menu menu;
