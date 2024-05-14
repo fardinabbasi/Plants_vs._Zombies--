@@ -7,6 +7,10 @@ config(config), BaseScreen("BackGround.png", "Loonboon.ogg")
     state = BATTLE;
     sun = new Sun(config["Sun"], background_sp.getGlobalBounds());
     interval = 0;
+    cards.pushback(new Card(config["PeaShooter"],background_sp.getGlobalBounds(),"PeaShooter",130, peaRect));
+    cards.pushback(new Card(config["SnowPea"],background_sp.getGlobalBounds(),"SnowPea",230, snowyRect));
+    cards.pushback(new Card(config["Sunflower"],background_sp.getGlobalBounds(),"Sunflower",330, sunflowerRect));
+    cards.pushback(new Card(config["Walnut"],background_sp.getGlobalBounds(),"Walnut",430, peanutRect));
 }
 
 void Battle::render(RenderWindow &window)

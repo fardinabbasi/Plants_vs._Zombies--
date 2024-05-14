@@ -29,6 +29,11 @@ const vector<unsigned int> HEIGHT_GRIDS ={
   125, 230, 320, 420, 520
 };
 
+const IntRect peaRect(0, 150, 95, 96);
+const IntRect snowyRect(0, 130, 120, 115);
+const IntRect sunflowerRect(0, 170, 130, 130);
+const IntRect peanutRect(0, 0, 101, 115);
+
 enum State {
   BATTLE,
   STARTING,

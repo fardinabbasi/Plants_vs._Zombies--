@@ -26,6 +26,7 @@ class Battle: public BaseScreen{
     Sun* sun;
     list<BaseZombie*> zombies;
     list<Plant*> plants;
+    list <Card*> cards;
     State state;
     Clock clock;
     unsigned int interval;
