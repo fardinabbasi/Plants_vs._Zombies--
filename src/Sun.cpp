@@ -55,15 +55,16 @@ void Sun::update(){
     deck_txt.setString(to_string(budget));
 }
 
-void Sun::mouse_press(int x, int y){
+bool Sun::mouse_press(int x, int y){
     auto it = suns.begin();
     while(it != suns.end()){
         if (it->getGlobalBounds().contains(Vector2f(x,y))){
             budget++;
             it = suns.erase(it);
-            break;
+            return true;
         }
         else
             ++it;
     }
+    return false;
 }

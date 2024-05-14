@@ -7,9 +7,10 @@ config(config), BaseScreen("BackGround.png", "Loonboon.ogg")
     state = BATTLE;
     sun = new Sun(config["Sun"], background_sp.getGlobalBounds());
     interval = 0;
+    chosen_card = nullptr;
 }
 
-void Battle::render(RenderWindow &window){
+State Battle::render(RenderWindow &window){
     update();
     if(music.getStatus() != Music::Playing)
         music.play();
@@ -17,11 +18,52 @@ void Battle::render(RenderWindow &window){
     for_each(zombies.begin(), zombies.end(), [&window](BaseZombie* zombie){ zombie->render(window); });
     sun->render(window);
     window.display();
+    return state;
 }
 
-State Battle::mouse_press(int x, int y){
-    sun->mouse_press(x, y);
-    return state;
+void Battle::mouse_press(int x, int y){
+    if(!sun->mouse_press(x, y)){
+        auto it = find_if(deck.begin(), deck.end(), [x,y](Card* card){ card.contains(x,y) && card.ready();});
+        if(it != deck.end())
+            chosen_card = *it;
+        else
+            chosen_card = nullptr;
+    }
+}
+
+void Battle::mouse_release(int x, int y){
+    if(chosen_card != nullptr && in_battle_feild(x,y)){
+        Vector2f pos = find_position(x, y);
+        if(!any_of(plants.begin(), plants.end(), [pos](Plant* plant){ plant.getPosition() == pos;})){
+            plants.push_back(new Plant(config[chosen_card.get_name()], chosen_card.get_name() + ".png", pos));
+            chosen_card->reset();
+        }
+    }
+    chosen_card = nullptr;
+}
+
+Vector2f Battle::find_position(int x, int y){
+    Vector2f nearest_point;
+    double min_distance = numeric_limits<double>::max();
+    for (unsigned int i = 0; i < WIDTH_GRIDS.size(); ++i) {
+        for (unsigned int j = 0; j < HEIGHT_GRIDS.size(); ++j) {
+        Vector2f current_point(background_sp.getGlobalBounds().left + WIDTH_GRIDS[i], background_sp.getGlobalBounds().top + HEIGHT_GRIDS[j]);
+        double current_distance = sqrt(pow(current_point.x - x, 2) + pow(current_point.y - y, 2));
+
+        if (current_distance < min_distance) {
+            min_distance = current_distance;
+            nearest_point = current_point;
+        }
+        }
+    }
+    return nearest_point;
+}
+
+bool Battle::in_battle_feild(int x, int y){
+    return x >= BATTLE_FIELD.left + background_sp.getGlobalBounds().left
+    && x <= BATTLE_FIELD.left + BATTLE_FIELD.width + background_sp.getGlobalBounds().left
+    && y >= BATTLE_FIELD.top + background_sp.getGlobalBounds().top
+    && y <= BATTLE_FIELD.top + BATTLE_FIELD.height + background_sp.getGlobalBounds().top;
 }
 
 Battle::~Battle(){

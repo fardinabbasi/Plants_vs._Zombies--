@@ -15,9 +15,10 @@ BaseScreen::BaseScreen(const string bg_image_path, const string bg_music_path){
     background_sp.setPosition(centeredPosition);
 }
 
-void BaseScreen::render(RenderWindow &window){
+State BaseScreen::render(RenderWindow &window){
     if(music.getStatus() != Music::Playing)
         music.play();
     window.draw(background_sp);
     window.display();
+    return state;
 }

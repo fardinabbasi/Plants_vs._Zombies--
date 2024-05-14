@@ -16,7 +16,7 @@ void PVZ::run(){
         switch (state)
         {
         case STARTING:
-            menu.render(window);
+            state = menu.render(window);
             break;
         case BATTLE:
             battle.render(window);
@@ -45,10 +45,10 @@ void PVZ::event_handler(){
             switch (state)
             {
             case STARTING:
-                state = menu.mouse_press(event.mouseButton.x, event.mouseButton.y);
+                menu.mouse_press(event.mouseButton.x, event.mouseButton.y);
                 break;
             case BATTLE:
-                state = battle.mouse_press(event.mouseButton.x, event.mouseButton.y);
+                battle.mouse_press(event.mouseButton.x, event.mouseButton.y);
                 break;
             default:
                 break;
@@ -58,6 +58,7 @@ void PVZ::event_handler(){
             switch (state)
             {
             case BATTLE:
+                battle.mouse_release(event.mouseButton.x, event.mouseButton.y);
                 break;
             default:
                 break;

@@ -29,6 +29,13 @@ const vector<unsigned int> HEIGHT_GRIDS ={
   125, 230, 320, 420, 520
 };
 
+struct Inf{
+  unsigned int left = 250;
+  unsigned int top = 70;
+  unsigned int width = 745;
+  unsigned int height = 515;
+} BATTLE_FIELD;
+
 enum State {
   BATTLE,
   STARTING,

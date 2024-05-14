@@ -7,7 +7,7 @@ class Menu: public BaseScreen{
     public:
     Menu();
     
-    State mouse_press(int x, int y);
+    void mouse_press(int x, int y);
     private:
     RectangleShape button;
 };

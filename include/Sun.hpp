@@ -12,7 +12,7 @@ class Sun{
     Sun(){};
     Sun(map<string, int> config, const FloatRect bg_bound);
     void render(RenderWindow& window);
-    void mouse_press(int x, int y);
+    bool mouse_press(int x, int y);
     void modify_budget(int num) { budget += num; }
     unsigned int get_budget(){ return budget; }
 
