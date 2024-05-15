@@ -21,14 +21,14 @@ string trim(const string str) {
         return str.substr(start, end - start + 1);
 }
 
-map<string, map<string, int>> read_config(const string path){
+map<string, map<string, float>> read_config(const string path){
     ifstream fin(path);
     if (!fin.is_open()) {
         cerr << FILE_FAILED_MESSAGE << endl;
     }
     int i;
-    map<string, map<string, int>> config;
-    map<string, int> inf;
+    map<string, map<string, float>> config;
+    map<string, float> inf;
     vector<string> headers;
     string line, data, name;
 
@@ -47,7 +47,7 @@ map<string, map<string, int>> read_config(const string path){
         i = 1;
         while(getline(ss, data, COMMA_DELIM)){
             if (!data.empty()){
-                inf[headers[i]] = stoi(data);
+                inf[headers[i]] = stof(data);
             }
             i++;
         }

@@ -1,11 +1,12 @@
 #include "PVZ.hpp"
 
 
-PVZ::PVZ(map<string, map<string, int>> config):
+PVZ::PVZ(map<string, map<string, float>> config):
 battle(config), victory_screen("Victory.jpg", "Victory.ogg"), lose_screen("GameOver.png", "Lose.ogg")
 {
     window.create(VideoMode(WINDOW_WIDTH ,WINDOW_HEIGHT), "PVZ", Style::Close);
     window.setFramerateLimit(FRAME_RATE);
+    window.setVerticalSyncEnabled(false);
     state = STARTING;
 }
 
@@ -16,10 +17,10 @@ void PVZ::run(){
         switch (state)
         {
         case STARTING:
-            menu.render(window);
+            state = menu.render(window);
             break;
         case BATTLE:
-            battle.render(window);
+            state = battle.render(window);
             break;
         case VICTORY:
             victory_screen.render(window);
@@ -47,10 +48,10 @@ void PVZ::event_handler(){
             switch (state)
             {
             case STARTING:
-                state = menu.mouse_press(event.mouseButton.x, event.mouseButton.y);
+                menu.mouse_press(event.mouseButton.x, event.mouseButton.y);
                 break;
             case BATTLE:
-                state = battle.mouse_press(event.mouseButton.x, event.mouseButton.y);
+                battle.mouse_press(event.mouseButton.x, event.mouseButton.y);
                 break;
             default:
                 break;
@@ -61,6 +62,7 @@ void PVZ::event_handler(){
             switch (state)
             {
             case BATTLE:
+                battle.mouse_release(event.mouseButton.x, event.mouseButton.y);
                 break;
             default:
                 break;

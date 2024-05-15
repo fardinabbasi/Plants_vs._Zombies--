@@ -1,10 +1,10 @@
 #include "Card.hpp"
-Card::Card(map<string, int> config,FloatRect bg_bound,string type,int y_ofset, IntRect subrect)
+
+Card::Card(map<string, float> config, Vector2f pos, const string tex_path):
+config(config)
 {
-    this->config = config;
-    this->type = type;
-    this-> can_plant = false;
-    if (!deck_tex.loadFromFile(IMAGES_PATH + type)) 
+    IntRect sub_rect;
+    if (!card_tex.loadFromFile(IMAGES_PATH + tex_path)) 
     {
         cerr << FILE_FAILED_MESSAGE << endl;
     }
@@ -12,56 +12,40 @@ Card::Card(map<string, int> config,FloatRect bg_bound,string type,int y_ofset, I
     {
         cerr << FILE_FAILED_MESSAGE << endl;
     }
-    deck_sp.setTexture(deck_tex);
-    deck_sp.setTextureRect(subrect);
-    deck_sp.setOrigin(static_cast<Vector2f>(deck_tex.getSize()) / 2.f);
-    deck_sp.setScale(0.25f, 0.25f);
-    deck_sp.setPosition(Vector2f(bg_bound.left + 70.f, bg_bound.top + static_cast<float>(y_offset)));
-    deck_txt.setFont(font);
-    deck_txt.setFillColor(Color::Black);
-    deck_txt.setCharacterSize(16);
-    deck_txt.setPosition(Vector2f(bg_bound.left + 170.f, bg_bound.top + static_cast<float>(y_offset)));
+
+    type = tex_path.substr(0, tex_path.find(".png"));
+    if(type == "PeaShooter")
+        sub_rect = PEA_RECT;
+    else if(type == "SnowPea")
+        sub_rect = SNOWPEA_RECT;
+    else if (type == "Sunflower")
+        sub_rect = SUNFLOWER_RECT;
+    else if (type == "Walnut")
+        sub_rect = WALNUT_RECT;
+    else if (type == "MelonPult")
+        //sub_rect = MELONPULT_RECT;
+
+    card_sp.setTexture(card_tex);
+    card_sp.setTextureRect(sub_rect);
+    card_sp.setScale(0.25f, 0.25f);
+    card_sp.setPosition(pos);
+
+    price_txt.setFont(font);
+    price_txt.setFillColor(Color::Black);
+    price_txt.setCharacterSize(16);
+    price_txt.setPosition(Vector2f(pos.x + 50, pos.y));
     cool_down.restart();
     
 }
 
 void Card::render(RenderWindow &window)
 {
-    update();
-    window.draw(deck_sp);
-    window.draw(deck_txt);
-}
-
-void Card::update()
-{
-    int remaining_time = (config[type]["Cooldown"]*1000 - cool_down.getElapsedTime().asMilliseconds())/1000;
-
-    if (remaining_time <= 0) 
-    {
-        remaining_time = 0;
-        can_plant = true;
-    }
-
-    deck_txt.setString(to_string(remaining_time) + "s")
-}
-
-bool Card::ready()
-{
-    return can_plant;
-}
-
-Card::reset()
-{
-    cool_down.restart();
-}
-
-string Card::get_name()
-{
-    return type;
+    price_txt.setString(to_string(config["Price"]));
+    window.draw(card_sp);
+    window.draw(price_txt);
 }
 
 bool Card::contains(int x, int y)
 {
-    FloatRect bounds = deck_sp.getGlobalBounds();
-    return bounds.contains(static_cast<float>(x), static_cast<float>(y));
+    return card_sp.getGlobalBounds().contains(x,y);
 }
