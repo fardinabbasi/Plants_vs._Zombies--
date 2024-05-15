@@ -1,48 +1,49 @@
 #include "Plant.hpp"
 
-Plant::Plant(map<string, int> config,string plant_tex_file,const FloatRect bg_bound,const Vector2f& position)
+Plant::Plant(map<string, float> config,string plant_tex_file,const Vector2f& position)
 {
-    this-> position = position;
-    this-> damage = config["Damage"];
-    this-> health = config["Health"];
-    this-> hit_rate = config["HitRat"];
-    this-> speed = static_cast<float>(config["Speed"]);
-    //this-> cool_down = milliseconds(config["cool_down"]);
-    this-> price = config["Price"];
+    int health = config["Health"];
     if (!plant_tex.loadFromFile(IMAGES_PATH + plant_tex_file)) 
     {
         cerr << FILE_FAILED_MESSAGE << endl;
     }
-    if (!font.loadFromFile(FONTS_PATH + "score.ttf")) 
-    {
-        cerr << FILE_FAILED_MESSAGE << endl;
-    }
-
-    IntRect subrect(0, 0, 350, 325);
-    // deck_sp.setTexture(plant_tex);
-    // deck_sp.setTextureRect(subrect);
-    // deck_sp.setPosition(bg_bound.left+70, bg_bound.top+30);//later change
-    // deck_sp.setScale(0.25, 0.25);
-    // deck_txt.setFont(font);
 
     plant_sp.setTexture(plant_tex);
-    plant_sp.setTextureRect(subrect);
-    plant_sp.setOrigin((Vector2f)plant_tex.getSize() / 2.f);
+    plant_sp.setTextureRect(WALNUT_RECT);
     plant_sp.setScale(0.25, 0.25);
     plant_sp.setPosition(position);
-
-    //deck_txt.setString(to_string(sun_budget));
-    //deck_txt.setFillColor(Color::Black);
-    //deck_txt.setPosition(Vector2f(bg_bound.left+170, bg_bound.top+50));//later change
-
 }
 
+bool Plant::dead()
+{
+    return (health <= 0);
+}
+
+void Plant::hurt(unsigned int damage)
+{
+    health -= damage;
+}
+
+void Plant::set_target(BaseZombie* z)
+{
+    if (z->get_height() == plant_sp.getGlobalBounds().height)
+    {
+       if(zombie == nullptr ||
+        (z->get_width() >= plant_sp.getGlobalBounds().left && z->get_width() < zombie->get_width()))
+        {
+            zombie = z;
+        }
+    }
+}
 void Plant::render(RenderWindow &window)
 {
-    //update();
-    //window.draw(deck_sp);
-    // for (auto&sun:suns){
-    //     window.draw(sun);
-    // }
     window.draw(plant_sp);
+}
+
+void Plant::update()
+{
+    if (plant_sp.getGlobalBounds().right >= zombie->get_width())
+    {
+        zombie->hurt(config["Damage"]);
+    } 
 }
