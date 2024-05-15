@@ -1,14 +1,18 @@
 #ifndef BASEZOMBIE_HPP
 #define BASEZOMBIE_HPP
 
+#include "Defs.hpp"
+#include "Plant.hpp"
 #include <map>
 #include <random>
 #include "Defs.hpp"
 #include "Plant.hpp"
 
-class BaseZombie{
+
+class BaseZombie
+{
     public:
-    BaseZombie(map<string, float> config, string tex_path, FloatRect bg_bound);
+    BaseZombie(map<string, float> config, const string tex_path, FloatRect bg_bound);
     void set_target(Plant* plant);
     void hurt(unsigned int damage, bool cool = false);
     bool dead();
