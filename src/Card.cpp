@@ -1,9 +1,12 @@
 #include "Card.hpp"
 
-Card::Card(map<string, float> config, Vector2f pos, const string tex_path):
+Card::Card(map<string, float> config, const FloatRect bg_bound, const string tex_path):
 config(config)
 {
     IntRect sub_rect;
+    card_sp.setTexture(card_tex);
+    card_sp.setTextureRect(sub_rect);
+    card_sp.setScale(0.25f, 0.25f);
     if (!card_tex.loadFromFile(IMAGES_PATH + tex_path)) 
     {
         cerr << FILE_FAILED_MESSAGE << endl;
@@ -15,21 +18,32 @@ config(config)
 
     type = tex_path.substr(0, tex_path.find(".png"));
     if(type == "PeaShooter")
+    {
         sub_rect = PEA_RECT;
+        Vector2f pos(bg_bound.left+70, bg_bound.top+130);
+    }
     else if(type == "SnowPea")
-        sub_rect = SNOWPEA_RECT;
+    {    sub_rect = SNOWPEA_RECT;
+         Vector2f pos(bg_bound.left+70,bg_bound.top+230 );
+    }
     else if (type == "Sunflower")
+    {
         sub_rect = SUNFLOWER_RECT;
+        Vector2f pos(bg_bound.left+70, bg_bound.top+330);
+
+    }
     else if (type == "Walnut")
+    {
         sub_rect = WALNUT_RECT;
+        Vector2f pos(bg_bound.left+70, bg_bound.top+430 );
+    }
     else if (type == "MelonPult")
-        //sub_rect = MELONPULT_RECT;
+    {
+        sub_rect = MELONPULT_RECT;
+        Vector2f pos(bg_bound.left+70, bg_bound.top+530 );
+    }
 
-    card_sp.setTexture(card_tex);
-    card_sp.setTextureRect(sub_rect);
-    card_sp.setScale(0.25f, 0.25f);
     card_sp.setPosition(pos);
-
     price_txt.setFont(font);
     price_txt.setFillColor(Color::Black);
     price_txt.setCharacterSize(16);
@@ -61,12 +75,12 @@ plant* Card::make_plant(Vector2f& position)
     cool_down.restart();
     if (type == "peaShooter")
     {
-        return new PeaShooter(config["peaShooter"],"Projectiles",position);
+        return new PeaShooter(config["peaShooter"],"Projectiles",position,bg_bound);
 
     }
     else if (type == "SnowPea")
     {
-        return new SnowPea(config["SnowPea"],"Projectiles",position);
+        return new SnowPea(config["SnowPea"],"Projectiles",position,bg_bound);
     }
     else if (type == "Sunflower")
     {

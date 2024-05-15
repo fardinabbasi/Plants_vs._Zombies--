@@ -4,10 +4,11 @@ Battle::Battle(map<string, map<string, float>> &config) : config(config), BaseSc
 {
     sun = new Sun(config["Sun"], background_sp.getGlobalBounds());
     interval = 0;
-    deck.push_back(new Card(config["PeaShooter"], Vector2f(background_sp.getGlobalBounds().left, background_sp.getGlobalBounds().top+130) , "PeaShooter.png"));
-    deck.push_back(new Card(config["SnowPea"], Vector2f(background_sp.getGlobalBounds().left, background_sp.getGlobalBounds().top+230), "SnowPea.png"));
-    deck.push_back(new Card(config["Sunflower"], Vector2f(background_sp.getGlobalBounds().left, background_sp.getGlobalBounds().top+330), "Sunflower.png"));
-    deck.push_back(new Card(config["Walnut"], Vector2f(background_sp.getGlobalBounds().left, background_sp.getGlobalBounds().top+330), "Walnut.png"));
+    deck.push_back(new Card(config["PeaShooter"], background_sp.getGlobalBounds() , "PeaShooter.png"));
+    deck.push_back(new Card(config["SnowPea"], background_sp.getGlobalBounds(), "SnowPea.png"));
+    deck.push_back(new Card(config["Sunflower"], background_sp.getGlobalBounds(),"Sunflower.png"));
+    deck.push_back(new Card(config["Walnut"], background_sp.getGlobalBounds(), "Walnut.png"));
+    //deck.push_back(new Card(config["MelonPult"], background_sp.getGlobalBounds(), "MelonPult.png"));
 }
 
 State Battle::render(RenderWindow &window)

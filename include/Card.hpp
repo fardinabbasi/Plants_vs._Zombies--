@@ -7,11 +7,14 @@
 #include <fstream>
 #include "Defs.hpp"
 #include "Plant.hpp"
+#include "SnowPea.hpp"
+#include "PeaShooter.hpp"
+#include "SunFlower.hpp"
 
 class Card 
 {
 	public:
-	Card(map<string, float> config, Vector2f pos, const string tex_path);
+	Card(map<string, float> config, const FloatRect bg_bound, const string tex_path);
 	void render(RenderWindow &window);
 	bool contains(int x, int y);
 	plant* make_plant(Vector2f& position);

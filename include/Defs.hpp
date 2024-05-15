@@ -38,6 +38,7 @@ const IntRect WALNUT_RECT(0, 0, 101, 115);
 const IntRect BATTLE_FIELD(250, 70, 745, 515);
 const IntRect SUN_RECT(0, 0, 350, 325);
 const IntRect ZOMBIE_RECT(5, 5, 23, 36);
+const IntRect MELONPULT_RECT(0, 0, 135, 120);
 
 enum State {
   BATTLE,

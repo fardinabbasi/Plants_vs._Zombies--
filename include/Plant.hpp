@@ -6,6 +6,7 @@
 #include <list>
 #include <string>
 #include "Defs.hpp"
+#include "BaseZombie.hpp"
 
 class Plant
 {
@@ -19,6 +20,7 @@ class Plant
     virtual bool sun_pressed(int x,int y) = 0;
 
     protected:
+    map<string, float> config;
     Sprite plant_sp;
     Texture plant_tex;
     int health;

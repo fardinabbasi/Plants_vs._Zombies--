@@ -1,13 +1,13 @@
-#ifndef PEASHOOTER_HPP
-#define PEASHOOTER_HPP
+#ifndef SNOWPEA_HPP
+#define SNOWPEA_HPP
 
 #include "Plant.hpp"
 #include "Defs.hpp"
 
-class PeaShooter : public Plant 
+class SnowPea : public Plant 
 {
 	public:
-	    PeaShooter(map<string, float> config,string shots_tex_file,const Vector2f& position);
+		SnowPea(map<string, float> config,string shots_tex_file,const Vector2f& position,const FloatRect bg_bound)
 	    void update();
 	    void set_target(BaseZombie* z);
 	    void render(RenderWindow &window);
@@ -18,4 +18,3 @@ class PeaShooter : public Plant
 };
 
 #endif 
-

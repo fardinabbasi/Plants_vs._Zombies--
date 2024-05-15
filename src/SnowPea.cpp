@@ -1,5 +1,6 @@
-#include "PeaShooter.hpp"
-PeaShooter::PeaShooter(map<string, float> config,string shots_tex_file,const Vector2f& position,const FloatRect bg_bound) : Plant(config,"peaShooter.png", position)
+#include "SnowPea.hpp"
+
+SnowPea::SnowPea(map<string, float> config,string shots_tex_file,const Vector2f& position,const FloatRect bg_bound): Plant(config,"SnowPea.png", position)
 {
     attack_clock.reset();
     zombie = nullptr;
@@ -9,13 +10,13 @@ PeaShooter::PeaShooter(map<string, float> config,string shots_tex_file,const Vec
     }
 }
 
-void PeaShooter::update()
+void SnowPea::update()
 {
     if(attack_clock.getElapsedTime().asSeconds() >= config["HitRate"])
     {
         attack_clock.restart();
         Sprite new_shot;
-        IntRect subrect(5, 70, 30, 95);
+        IntRect subrect(5, 103, 30, 127);
         new_shot.setTexture(shot_tex);
         new_shot.setTextureRect(subrect);
         new_shot.setPosition(position);
@@ -32,7 +33,7 @@ void PeaShooter::update()
     {
         if (it->getGlobalBounds().right >= zombie->get_width())
         {
-            zombie->hurt(config["Damage"]);
+            zombie->hurt(config["Damage"],true);
             it = shots.erase(it);
             break;
         }
@@ -44,7 +45,7 @@ void PeaShooter::update()
   
 }
 
-void PeaShooter::set_target(BaseZombie* z)
+void SnowPea::set_target(BaseZombie* z)
 {
     if (z->get_height() == plant_sp.getGlobalBounds().height)
     {
@@ -56,7 +57,7 @@ void PeaShooter::set_target(BaseZombie* z)
     }
 }
 
-void PeaShooter::render(RenderWindow &window)
+void SnowPea::render(RenderWindow &window)
 {
     window.draw(plant_sp);
     for_each(shots.begin(), shots.end(), [&window](Sprite& shot){ window.draw(shot);});
