@@ -18,6 +18,7 @@ class Plant
     void hurt(unsigned int damage);
     bool dead();
     virtual bool sun_pressed(int x,int y) = 0;
+    Vector2f get_position();
 
     protected:
     map<string, float> config;

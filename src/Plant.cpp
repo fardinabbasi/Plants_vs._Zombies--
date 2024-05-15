@@ -48,3 +48,8 @@ void Plant::update()
         zombie->hurt(config["Damage"]);
     } 
 }
+
+Vector2f Plant::get_position()
+{
+    return position;
+}
