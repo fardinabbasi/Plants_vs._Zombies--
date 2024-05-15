@@ -13,6 +13,7 @@ class Card
 	Card(map<string, float> config, Vector2f pos, const string tex_path);
 	void render(RenderWindow &window);
 	bool contains(int x, int y);
+	
 
 	private:
 	map<string, float> config;

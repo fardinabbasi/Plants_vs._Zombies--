@@ -2,8 +2,10 @@
 #define BASEZOMBIE_HPP
 
 #include "Defs.hpp"
+#include "Plant.hpp"
 #include <map>
 #include <random>
+
 
 class BaseZombie{
     public:
