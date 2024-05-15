@@ -5,8 +5,6 @@
 #include "Plant.hpp"
 #include <map>
 #include <random>
-#include "Defs.hpp"
-#include "Plant.hpp"
 
 
 class BaseZombie

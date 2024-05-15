@@ -2,7 +2,6 @@
 
 SunFlower::SunFlower(map<string, float> config,string shots_tex_file,const Vector2f& position) : Plant(config,"Sunflower.png", position)
 {
-    attack_clock.reset();
     zombie = nullptr;
     if (!shot_tex.loadFromFile(IMAGES_PATH + shots_tex_file)) 
     {

@@ -1,7 +1,7 @@
 #include "PeaShooter.hpp"
 PeaShooter::PeaShooter(map<string, float> config,string shots_tex_file,const Vector2f& position,const FloatRect bg_bound) : Plant(config,"peaShooter.png", position)
 {
-    attack_clock.reset();
+    attack_clock.restart();
     zombie = nullptr;
     if (!shot_tex.loadFromFile(IMAGES_PATH + shots_tex_file)) 
     {
@@ -21,7 +21,7 @@ void PeaShooter::update()
         new_shot.setPosition(position);
         shots.push_back(new_shot);
     }
-    for_each(shots.begin(), shots.end(), [config["Speed"]](Sprite& shot){ shot.move(config["Speed"], 0); });
+    for_each(shots.begin(), shots.end(), [](Sprite& shot){ shot.move(config["Speed"], 0); });
 
     if (shots.front().getPosition().x >= bg_bound.width)
     {
