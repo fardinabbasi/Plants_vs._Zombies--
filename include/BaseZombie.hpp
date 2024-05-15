@@ -1,9 +1,10 @@
 #ifndef BASEZOMBIE_HPP
 #define BASEZOMBIE_HPP
 
-#include "Defs.hpp"
 #include <map>
 #include <random>
+#include "Defs.hpp"
+#include "Plant.hpp"
 
 class BaseZombie{
     public:
