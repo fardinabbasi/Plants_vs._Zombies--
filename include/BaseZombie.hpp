@@ -7,7 +7,8 @@
 #include <random>
 
 
-class BaseZombie{
+class BaseZombie
+{
     public:
     BaseZombie(map<string, float> config, const string tex_path, FloatRect bg_bound);
     void set_target(Plant* plant);
