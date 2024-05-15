@@ -27,7 +27,9 @@ State Battle::render(RenderWindow &window){
 }
 
 void Battle::mouse_press(int x, int y){
-    if(!sun->mouse_press(x, y)){
+    if(any_of(plants.begin(), plants.end(), [](Plant* plant){ plant->sun_press(x,y); }))
+        sun->modify_budget();
+    else if(!sun->mouse_press(x, y)){
         auto it = find_if(deck.begin(), deck.end(), [x,y](Card* card){ card.contains(x,y); });
         if(it != deck.end() && it->ready() && sun->spend(it->get_price()))
             chosen_card = *it;
@@ -39,9 +41,8 @@ void Battle::mouse_press(int x, int y){
 void Battle::mouse_release(int x, int y){
     if(chosen_card != nullptr && in_battle_feild(x,y)){
         Vector2f pos = find_position(x, y);
-        if(!any_of(plants.begin(), plants.end(), [pos](Plant* plant){ plant.getPosition() == pos;})){
-            plants.push_back(new Plant(config[chosen_card.get_name()], chosen_card.get_name() + ".png", pos));
-            chosen_card->reset();
+        if(!any_of(plants.begin(), plants.end(), [pos](Plant* plant){ plant.getPosition() == pos; })){
+            plants.push_back(chosen_card->make_plant(pos));
         }
     }
     chosen_card = nullptr;

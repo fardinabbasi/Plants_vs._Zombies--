@@ -13,7 +13,7 @@ class Sun{
     Sun(map<string, float> config, const FloatRect bg_bound);
     void render(RenderWindow& window);
     bool mouse_press(int x, int y);
-    void modify_budget(int num) { budget += num; }
+    void modify_budget(int num = 1) { budget += num; }
     bool spend(float price);
 
     private:
