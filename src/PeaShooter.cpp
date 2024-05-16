@@ -37,6 +37,8 @@ void PeaShooter::update()
         cout<<"zombie sets"<<endl;
         while(it != shots.end())
         {
+            cout<< it->getGlobalBounds().left<<endl;
+            cout<< zombie->get_width()<<endl;
             if (it->getGlobalBounds().left >= zombie->get_width())
             {
                 zombie->hurt(config["Damage"]);

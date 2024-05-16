@@ -81,13 +81,14 @@ Vector2f Battle::find_position(int x, int y)
         for (unsigned int j = 0; j < HEIGHT_GRIDS.size(); ++j)
         {
             Vector2f current_point(background_sp.getGlobalBounds().left + WIDTH_GRIDS[i], background_sp.getGlobalBounds().top + HEIGHT_GRIDS[j]);
+            if(x >= current_point.x && y>= current_point.y){
             double current_distance = sqrt(pow(current_point.x - x, 2) + pow(current_point.y - y, 2));
 
-            if (current_distance < min_distance)
-            {
+            if (current_distance < min_distance){
                 min_distance = current_distance;
                 nearest_point = current_point;
             }
+            }   
         }
     }
     return nearest_point;
@@ -95,8 +96,7 @@ Vector2f Battle::find_position(int x, int y)
 
 bool Battle::in_battle_feild(int x, int y)
 {
-    //return BATTLE_FIELD.contains(x - background_sp.getGlobalBounds().left, y - background_sp.getGlobalBounds().top);
-    return true;
+    return BATTLE_FIELD.contains(x - background_sp.getGlobalBounds().left, y - background_sp.getGlobalBounds().top);
 }
 
 Battle::~Battle()
@@ -126,6 +126,7 @@ void Battle::find_target()
         if ((*plant_it)->dead())
         {
             plant_it = plants.erase(plant_it);
+            cout<<"plant died"<<endl;
             continue;
         }
         while (zombie_it != zombies.end())
@@ -133,8 +134,10 @@ void Battle::find_target()
             if ((*zombie_it)->dead())
             {
                 zombie_it = zombies.erase(zombie_it);
+                cout<<"zombie died"<<endl;
                 continue;
             }
+            //cout<<"plant not died"<<endl;
             (*zombie_it)->set_target(*plant_it);
             (*plant_it)->set_target(*zombie_it);
             ++zombie_it;

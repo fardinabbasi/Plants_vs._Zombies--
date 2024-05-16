@@ -54,6 +54,8 @@ void BaseZombie::hurt(unsigned int damage, bool cool){
     if(cool){
         cool_penalty.restart();
     }
+    cout<<"health is:"<<health<<endl;
+
 }
 
 bool BaseZombie::dead(){

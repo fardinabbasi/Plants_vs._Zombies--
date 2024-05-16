@@ -24,7 +24,7 @@ bool Plant::dead(){
 void Plant::hurt(unsigned int damage)
 {
     health -= damage;
-    cout<<"health is:"<<health<<endl;
+    //cout<<"health is:"<<health<<endl;
 }
 
 void Plant::set_target(BaseZombie* z)
