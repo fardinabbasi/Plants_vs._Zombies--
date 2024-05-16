@@ -88,22 +88,21 @@ bool Card::contains(int x, int y){
 
 Plant* Card::make_plant(Vector2f& position)
 {
+    Plant* maked = nullptr;
     cool_down.restart();
-    if (type == "peaShooter"){
-        return new PeaShooter(config,"Projectiles.png", position, bg_bound);
+    if (type == "PeaShooter"){
+        maked = new PeaShooter(config,"Projectiles.png", position, bg_bound);
     }
     else if (type == "SnowPea"){
-        return new SnowPea(config,"Projectiles.png", position, bg_bound);
+        maked = new SnowPea(config,"Projectiles.png", position, bg_bound);
     }
     else if (type == "Sunflower"){
-        return new Sunflower(config, "Projectiles.png", position);
+        maked = new Sunflower(config, "Projectiles.png", position);
     }
     else if (type == "Walnut"){
-        return new Plant(config, "Walnut.png", position);
+        maked = new Plant(config, "Walnut.png", position);
     }
-    else{
-        return nullptr;
-    }
+    return maked;
 }
 
 float Card::get_price(){

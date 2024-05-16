@@ -1,8 +1,8 @@
 #include "Plant.hpp"
 
-Plant::Plant(map<string, float> config,string plant_tex_file,const Vector2f& position)
+Plant::Plant(map<string, float> config, string plant_tex_file, const Vector2f& position):
+config(config)
 {
-    config = config;
     int health = config["Health"];
     if (!plant_tex.loadFromFile(IMAGES_PATH + plant_tex_file)) 
     {

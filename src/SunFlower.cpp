@@ -7,6 +7,7 @@ Sunflower::Sunflower(map<string, float> config,string shots_tex_file,const Vecto
     {
         cerr << FILE_FAILED_MESSAGE << endl;
     }
+    plant_sp.setTextureRect(SUNFLOWER_RECT);
 }
 
 void Sunflower::update()

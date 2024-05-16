@@ -8,6 +8,7 @@ PeaShooter::PeaShooter(map<string, float> config,string shots_tex_file,const Vec
     {
         cerr << FILE_FAILED_MESSAGE << endl;
     }
+    plant_sp.setTextureRect(PEA_RECT);
 }
 
 void PeaShooter::update()
