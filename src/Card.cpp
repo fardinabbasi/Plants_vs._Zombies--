@@ -1,7 +1,7 @@
 #include "Card.hpp"
 
 Card::Card(map<string, float>& config, FloatRect bg_bound, const string tex_path):
-config(config)
+config(config), bg_bound(bg_bound)
 {
     if (!card_tex.loadFromFile(IMAGES_PATH + tex_path)) 
     {
@@ -11,12 +11,9 @@ config(config)
     {
         cerr << FILE_FAILED_MESSAGE << endl;
     }
+
     IntRect sub_rect;
     Vector2f pos;
-    bg_bound = bg_bound;
-    card_sp.setTexture(card_tex);
-    card_sp.setTextureRect(sub_rect);
-    card_sp.setScale(0.25f, 0.25f);
 
     type = tex_path.substr(0, tex_path.find(".png"));
     if(type == "PeaShooter")
@@ -26,8 +23,9 @@ config(config)
 
     }
     else if(type == "SnowPea")
-    {    sub_rect = SNOWPEA_RECT;
-        pos = Vector2f(bg_bound.left+70,bg_bound.top+230 );
+    {    
+        sub_rect = SNOWPEA_RECT;
+        pos = Vector2f(bg_bound.left+70,bg_bound.top+230);
     }
     else if (type == "Sunflower")
     {
@@ -48,23 +46,40 @@ config(config)
         cerr << WRONG_TYPE_MESSAGE << endl;
     }
 
+    card_sp.setTexture(card_tex);
+    card_sp.setTextureRect(sub_rect);
     card_sp.setPosition(pos);
+    card_sp.setScale(0.5f, 0.5f);
+
     price_txt.setFont(font);
     price_txt.setFillColor(Color::Black);
     price_txt.setPosition(Vector2f(pos.x + 50, pos.y-10));
+    price_txt.setString(to_string(int(config["Price"])));
+    price_txt.setScale(0.5, 0.5);
 
     time_txt.setFont(font);
     time_txt.setFillColor(Color::Black);
     time_txt.setPosition(Vector2f(Vector2f(pos.x + 50, pos.y+10)));
+    time_txt.setScale(0.5, 0.5);
+
     cool_down.restart();
     
 }
 
 void Card::render(RenderWindow &window){
-    price_txt.setString(to_string(int(config["Price"])));
-    time_txt.setString(to_string(int(config["Cooldown"]-cool_down.getElapsedTime().asSeconds())) + "(s)");
-    window.draw(card_sp);
+    
+    time_txt.setString(to_string(calc_cooldown()) + "(s)");
     window.draw(price_txt);
+    window.draw(time_txt);
+    window.draw(card_sp);
+}
+
+int Card::calc_cooldown(){
+    int remaining_cooldown = config["Cooldown"] - cool_down.getElapsedTime().asSeconds();
+    if (remaining_cooldown <= 0)
+        return 0;
+    else
+        return remaining_cooldown;
 }
 
 bool Card::contains(int x, int y){
@@ -96,5 +111,5 @@ float Card::get_price(){
 }
 
 bool Card::ready(){
-    return config["Cooldown"] <= cool_down.getElapsedTime().asSeconds();
+    return calc_cooldown() <= 0;
 }

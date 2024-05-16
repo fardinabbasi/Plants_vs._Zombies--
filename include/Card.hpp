@@ -11,8 +11,7 @@
 #include "PeaShooter.hpp"
 #include "Sunflower.hpp"
 
-class Card 
-{
+class Card {
 	public:
 	Card(map<string, float>& config, FloatRect bg_bound, const string tex_path);
 	void render(RenderWindow &window);
@@ -22,6 +21,7 @@ class Card
 	bool ready();
 
 	private:
+	int calc_cooldown();
 	FloatRect bg_bound;
 	map<string, float> config;
 	Sprite card_sp;
