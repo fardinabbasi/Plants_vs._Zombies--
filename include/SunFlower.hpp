@@ -4,13 +4,13 @@
 #include "Plant.hpp"
 #include "Defs.hpp"
 
-class SunFlower : public Plant 
+class Sunflower : public Plant 
 {
 	public:
-	    SunFlower(map<string, float> config,string shots_tex_file,const Vector2f& position);
-	    bool mouse_pressed(int x,int y);
-	    void render(RenderWindow &window);
-	    void update();
+	Sunflower(map<string, float> config,string shots_tex_file,const Vector2f& position);
+	bool sun_pressed(int x,int y);
+	void render(RenderWindow &window);
+	void update();
 	protected:
 	Texture sun_tex;
 	list<Sprite> suns;

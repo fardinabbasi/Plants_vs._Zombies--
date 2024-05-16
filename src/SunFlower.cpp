@@ -1,17 +1,17 @@
-#include "SunFlower.hpp"
+#include "Sunflower.hpp"
 
-SunFlower::SunFlower(map<string, float> config,string shots_tex_file,const Vector2f& position) : Plant(config,"Sunflower.png", position)
+Sunflower::Sunflower(map<string, float> config,string shots_tex_file,const Vector2f& position) : Plant(config,"Sunflower.png", position)
 {
     zombie = nullptr;
-    if (!shot_tex.loadFromFile(IMAGES_PATH + shots_tex_file)) 
+    if (!sun_tex.loadFromFile(IMAGES_PATH + shots_tex_file)) 
     {
         cerr << FILE_FAILED_MESSAGE << endl;
     }
 }
 
-void SunFlower::update()
+void Sunflower::update()
 {
-    else if(attack_clock.getElapsedTime().asSeconds() >= config["HitRate"])
+    if(attack_clock.getElapsedTime().asSeconds() >= config["HitRate"])
     {
         attack_clock.restart();
         Sprite new_sun;
@@ -24,14 +24,14 @@ void SunFlower::update()
 
 }
 
-bool SunFlower::sun_pressed(int x,int y)
+bool Sunflower::sun_pressed(int x,int y)
 {
     auto it = suns.begin();
     while(it != suns.end())
     {
         if (it->getGlobalBounds().contains(static_cast<float>(x), static_cast<float>(y)))
         {
-            it = shots.erase(it);
+            it = suns.erase(it);
             return true;
         }
         else
@@ -43,7 +43,7 @@ bool SunFlower::sun_pressed(int x,int y)
 }
 
 
-void SunFlower::render(RenderWindow &window)
+void Sunflower::render(RenderWindow &window)
 {
     window.draw(plant_sp);
     for_each(suns.begin(), suns.end(), [&window](Sprite& sun){ window.draw(sun);});

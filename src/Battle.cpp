@@ -3,7 +3,7 @@
 Battle::Battle(map<string, map<string, float>> &config) : config(config), BaseScreen("BackGround.png", "Loonboon.ogg")
 {
     sun = new Sun(config["Sun"], background_sp.getGlobalBounds());
-     attack_interval = 0;
+    attack_interval = 0;
     chosen_card = nullptr;
     deck.push_back(new Card(config["PeaShooter"], background_sp.getGlobalBounds() , "PeaShooter.png"));
     deck.push_back(new Card(config["SnowPea"], background_sp.getGlobalBounds(), "SnowPea.png"));
@@ -40,7 +40,7 @@ void Battle::mouse_press(int x, int y)
     if (!sun->mouse_press(x, y))
     {
         auto it = find_if(deck.begin(), deck.end(), [x, y](Card* card)
-                          { card->contains(x, y); });
+                          { return card->contains(x, y); });
         if (it != deck.end() && (*it)->ready() && sun->spend((*it)->get_price()))
             chosen_card = *it;
         else
@@ -54,7 +54,7 @@ void Battle::mouse_release(int x, int y)
     {
         Vector2f pos = find_position(x, y);
         if (!any_of(plants.begin(), plants.end(), [pos](Plant *plant)
-                    { plant->get_position() == pos; }))
+                    { return plant->get_position() == pos; }))
         {
             plants.push_back(chosen_card->make_plant(pos));
         }
