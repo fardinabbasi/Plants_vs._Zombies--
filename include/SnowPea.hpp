@@ -7,12 +7,13 @@
 class SnowPea : public Plant 
 {
 	public:
-		SnowPea(map<string, float> config,string shots_tex_file,const Vector2f& 		position,const FloatRect bg_bound);
+		SnowPea(map<string, float> config,string shots_tex_file,const Vector2f& 		position,FloatRect bg_bound);
 	    void update();
 	    void set_target(BaseZombie* z);
 	    void render(RenderWindow &window);
 
 	protected:
+	FloatRect bg_bound;
 	Texture shot_tex;
 	list<Sprite> shots;
 };

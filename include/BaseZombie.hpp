@@ -6,7 +6,7 @@
 #include <map>
 #include <random>
 
-
+class Plant;
 class BaseZombie
 {
     public:

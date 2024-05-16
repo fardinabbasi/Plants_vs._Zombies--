@@ -1,7 +1,8 @@
 #include "SnowPea.hpp"
 
-SnowPea::SnowPea(map<string, float> config,string shots_tex_file,const Vector2f& position,const FloatRect bg_bound): Plant(config,"SnowPea.png", position)
+SnowPea::SnowPea(map<string, float> config,string shots_tex_file,const Vector2f& position,FloatRect bg_bound): Plant(config,"SnowPea.png", position)
 {
+    bg_bound = bg_bound;
     attack_clock.restart();
     zombie = nullptr;
     if (!shot_tex.loadFromFile(IMAGES_PATH + shots_tex_file)) 
@@ -22,7 +23,7 @@ void SnowPea::update()
         new_shot.setPosition(position);
         shots.push_back(new_shot);
     }
-    for_each(shots.begin(), shots.end(), [](Sprite& shot){ shot.move(config["Speed"], 0); });
+    for_each(shots.begin(), shots.end(), [this](Sprite& shot){ shot.move(config["Speed"], 0); });
 
     if (shots.front().getPosition().x >= bg_bound.width)
     {
@@ -31,7 +32,7 @@ void SnowPea::update()
     auto it = shots.begin();
     while(it != shots.end())
     {
-        if (it->getGlobalBounds().right >= zombie->get_width())
+        if (it->getGlobalBounds().left >= zombie->get_width())
         {
             zombie->hurt(config["Damage"],true);
             it = shots.erase(it);
