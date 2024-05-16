@@ -19,23 +19,23 @@ config(config), bg_bound(bg_bound)
     if(type == "PeaShooter")
     {
         sub_rect = PEA_RECT;
-        pos = Vector2f(bg_bound.left+70, bg_bound.top+130);
+        pos = Vector2f(bg_bound.left+90, bg_bound.top+130);
 
     }
     else if(type == "SnowPea")
     {    
         sub_rect = SNOWPEA_RECT;
-        pos = Vector2f(bg_bound.left+70,bg_bound.top+230);
+        pos = Vector2f(bg_bound.left+90,bg_bound.top+230);
     }
     else if (type == "Sunflower")
     {
         sub_rect = SUNFLOWER_RECT;
-        pos = Vector2f(bg_bound.left+70, bg_bound.top+330);
+        pos = Vector2f(bg_bound.left+90, bg_bound.top+330);
     }
     else if (type == "Walnut")
     {
         sub_rect = WALNUT_RECT;
-        pos = Vector2f (bg_bound.left+70, bg_bound.top+430);
+        pos = Vector2f (bg_bound.left+90, bg_bound.top+430);
     }
     /*else if (type == "MelonPult")
     {
@@ -53,13 +53,13 @@ config(config), bg_bound(bg_bound)
 
     price_txt.setFont(font);
     price_txt.setFillColor(Color::Black);
-    price_txt.setPosition(Vector2f(pos.x + 50, pos.y-10));
+    price_txt.setPosition(Vector2f(pos.x + 65, pos.y+10));
     price_txt.setString(to_string(int(config["Price"])));
     price_txt.setScale(0.5, 0.5);
 
     time_txt.setFont(font);
     time_txt.setFillColor(Color::Black);
-    time_txt.setPosition(Vector2f(Vector2f(pos.x + 50, pos.y+10)));
+    time_txt.setPosition(Vector2f(Vector2f(pos.x + 65, pos.y+30)));
     time_txt.setScale(0.5, 0.5);
 
     cool_down.restart();

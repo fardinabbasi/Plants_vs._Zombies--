@@ -67,11 +67,6 @@ bool Sun::mouse_press(int x, int y){
     return false;
 }
 
-bool Sun::spend(float price){
-    if(budget >= price){
-        modify_budget(-price);
-        return true;
-    }
-    else
-        return false;
+bool Sun::can_buy(float price){
+    return budget >= price;
 }

@@ -11,13 +11,12 @@ Plant::Plant(map<string, float> config,string plant_tex_file,const Vector2f& pos
 
     plant_sp.setTexture(plant_tex);
     plant_sp.setTextureRect(WALNUT_RECT);
-    plant_sp.setScale(0.25, 0.25);
     plant_sp.setPosition(position);
+    plant_sp.setScale(0.25, 0.25);
 }
 
-bool Plant::dead()
-{
-    return (health <= 0);
+bool Plant::dead(){
+    return health <= 0;
 }
 
 void Plant::hurt(unsigned int damage)

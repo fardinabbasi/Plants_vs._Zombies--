@@ -41,7 +41,7 @@ void Battle::mouse_press(int x, int y)
     {
         auto it = find_if(deck.begin(), deck.end(), [x, y](Card* card)
                           { return card->contains(x, y); });
-        if (it != deck.end() && (*it)->ready() && sun->spend((*it)->get_price()))
+        if (it != deck.end() && (*it)->ready())
             chosen_card = *it;
         else
             chosen_card = nullptr;
@@ -50,13 +50,13 @@ void Battle::mouse_press(int x, int y)
 
 void Battle::mouse_release(int x, int y)
 {
-    if (chosen_card != nullptr && in_battle_feild(x, y))
-    {
+    if (chosen_card != nullptr && in_battle_feild(x, y) && sun->can_buy(chosen_card->get_price())){
         Vector2f pos = find_position(x, y);
         if (!any_of(plants.begin(), plants.end(), [pos](Plant *plant)
                     { return plant->get_position() == pos; }))
         {
             plants.push_back(chosen_card->make_plant(pos));
+            sun->modify_budget(-chosen_card->get_price());
         }
     }
     chosen_card = nullptr;

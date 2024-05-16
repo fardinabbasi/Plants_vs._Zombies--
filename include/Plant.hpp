@@ -9,6 +9,7 @@
 #include "BaseZombie.hpp"
 
 class BaseZombie;
+
 class Plant
 {
     public:

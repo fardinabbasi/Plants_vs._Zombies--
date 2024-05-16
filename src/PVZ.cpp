@@ -43,7 +43,7 @@ void PVZ::event_handler(){
     {
         if(event.type == Event::Closed)
             state = EXIT;
-        else if((event.type == Event::MouseButtonPressed || event.type == Event::MouseButtonReleased) && event.mouseButton.button == Mouse::Left)
+        else if(event.type == Event::MouseButtonPressed && event.mouseButton.button == Mouse::Left)
         {
             switch (state)
             {
@@ -57,7 +57,7 @@ void PVZ::event_handler(){
                 break;
             }
         }
-        else if(event.type == Event::MouseButtonReleased)
+        else if(event.type == Event::MouseButtonReleased && event.mouseButton.button == Mouse::Left)
         {
             switch (state)
             {

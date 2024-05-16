@@ -14,7 +14,7 @@ class Sun{
     void render(RenderWindow& window);
     bool mouse_press(int x, int y);
     void modify_budget(int num = 1) { budget += num; }
-    bool spend(float price);
+    bool can_buy(float price);
 
     private:
     void update();
