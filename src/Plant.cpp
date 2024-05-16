@@ -43,7 +43,7 @@ void Plant::render(RenderWindow &window)
 
 void Plant::update()
 {
-    if (plant_sp.getGlobalBounds().right >= zombie->get_width())
+    if (plant_sp.getGlobalBounds().left >= zombie->get_width())
     {
         zombie->hurt(config["Damage"]);
     } 
@@ -53,3 +53,10 @@ Vector2f Plant::get_position()
 {
     return position;
 }
+
+FloatRect Plant::get_global_bounds()
+{
+    return plant_sp.getGlobalBounds();
+}
+
+

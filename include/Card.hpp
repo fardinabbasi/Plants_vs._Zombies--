@@ -14,16 +14,17 @@
 class Card 
 {
 	public:
-	Card(map<string, float> config, const FloatRect bg_bound, const string tex_path);
+	Card(map<string, float> config, FloatRect bg_bound, const string tex_path);
 	void render(RenderWindow &window);
 	bool contains(int x, int y);
-	plant* make_plant(Vector2f& position);
+	Plant* make_plant(Vector2f& position);
 	float get_price();
 	bool ready();
 
 	
 
 	private:
+	FloatRect bg_bound;
 	map<string, float> config;
 	Sprite card_sp;
 	Texture card_tex;
@@ -32,7 +33,7 @@ class Card
 	Text time_txt;
 	Clock cool_down;
 	string type;
-}
+};
 
 
 #endif

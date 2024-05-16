@@ -43,7 +43,7 @@ void BaseZombie::update(){
 }
 
 void BaseZombie::set_target(Plant* p){
-    if(plant == nullptr && sprite.getGlobalBounds().intersects(p->getGlobalBounds()))
+    if(plant == nullptr && sprite.getGlobalBounds().intersects(p->get_global_bounds()))
         plant = p;
 }
 
