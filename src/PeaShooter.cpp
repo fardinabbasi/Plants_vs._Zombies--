@@ -24,25 +24,31 @@ void PeaShooter::update()
         shots.push_back(new_shot);
     }
     for_each(shots.begin(), shots.end(), [this](Sprite& shot){ shot.move(config["Speed"], 0); });
-
-    if (shots.front().getPosition().x >= bg_bound.width)
+    if(!shots.empty())
     {
-        shots.pop_front();
+        // if (shots.front().getPosition().x >= bg_bound.left)
+        // {
+        //     shots.pop_front();
+        // }
     }
     auto it = shots.begin();
-    while(it != shots.end())
+    if(zombie != nullptr)
     {
-        if (it->getGlobalBounds().left >= zombie->get_width())
+        while(it != shots.end())
         {
-            zombie->hurt(config["Damage"]);
-            it = shots.erase(it);
-            break;
-        }
-        else
-        {  
-            ++it;
+            if (it->getGlobalBounds().left >= zombie->get_width())
+            {
+                zombie->hurt(config["Damage"]);
+                it = shots.erase(it);
+                break;
+            }
+            else
+            {  
+                ++it;
+            }
         }
     }
+
   
 }
 
@@ -60,6 +66,8 @@ void PeaShooter::set_target(BaseZombie* z)
 
 void PeaShooter::render(RenderWindow &window)
 {
+    update();
     window.draw(plant_sp);
     for_each(shots.begin(), shots.end(), [&window](Sprite& shot){ window.draw(shot);});
+    
 }

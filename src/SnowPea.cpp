@@ -62,6 +62,7 @@ void SnowPea::set_target(BaseZombie* z)
 
 void SnowPea::render(RenderWindow &window)
 {
+    update();
     window.draw(plant_sp);
     for_each(shots.begin(), shots.end(), [&window](Sprite& shot){ window.draw(shot);});
 }

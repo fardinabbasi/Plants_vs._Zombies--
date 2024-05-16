@@ -1,9 +1,9 @@
 #include "Plant.hpp"
 
 Plant::Plant(map<string, float> config, string plant_tex_file, const Vector2f& position):
-config(config)
+config(config),position(position)
 {
-    int health = config["Health"];
+    this->health = config["Health"];
     if (!plant_tex.loadFromFile(IMAGES_PATH + plant_tex_file)) 
     {
         cerr << FILE_FAILED_MESSAGE << endl;
@@ -13,6 +13,8 @@ config(config)
     plant_sp.setTextureRect(WALNUT_RECT);
     plant_sp.setPosition(position);
     plant_sp.setScale(0.6, 0.6);
+    cout<<"x is:"<<plant_sp.getPosition().x<<"y is:"<<plant_sp.getPosition().y<<endl;
+
 }
 
 bool Plant::dead(){
@@ -22,6 +24,7 @@ bool Plant::dead(){
 void Plant::hurt(unsigned int damage)
 {
     health -= damage;
+    cout<<"health is:"<<health<<endl;
 }
 
 void Plant::set_target(BaseZombie* z)
@@ -37,6 +40,7 @@ void Plant::set_target(BaseZombie* z)
 }
 void Plant::render(RenderWindow &window)
 {
+    update();
     window.draw(plant_sp);
 }
 
