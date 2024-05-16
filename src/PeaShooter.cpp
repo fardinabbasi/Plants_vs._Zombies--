@@ -40,6 +40,7 @@ void PeaShooter::update()
             if (it->getGlobalBounds().left >= zombie->get_width())
             {
                 zombie->hurt(config["Damage"]);
+                cout << "damagedddddddddddddddddddddddddddddddddddddddddddd"<<endl;
                 it = shots.erase(it);
                 break;
             }
@@ -60,15 +61,15 @@ void PeaShooter::update()
 
 void PeaShooter::set_target(BaseZombie* z)
 {
-    cout<<"zombies hight"<<z->get_height()<<endl;
-    cout<<"plant hight"<<plant_sp.getGlobalBounds().top<<endl;
+    // cout<<"zombies hight"<<z->get_height()<<endl;
+    // cout<<"plant hight"<<plant_sp.getGlobalBounds().top<<endl;
     if (z->get_height() == plant_sp.getGlobalBounds().top)
     {
-        cout<<"same hight"<<endl;
+        // cout<<"same hight"<<endl;
        if(zombie == nullptr ||
         (z->get_width() >= plant_sp.getGlobalBounds().left && z->get_width() < zombie->get_width()))
         {
-            cout<<"infront of mee"<<endl;
+            // cout<<"infront of mee"<<endl;
             zombie = z;
         }
     }
