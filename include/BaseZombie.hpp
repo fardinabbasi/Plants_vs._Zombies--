@@ -18,6 +18,7 @@ class BaseZombie
     bool win();
     float get_height();
     float get_width();
+    float get_speed() { return config["Speed"]; }
     void render(RenderWindow &window);
     
     private:

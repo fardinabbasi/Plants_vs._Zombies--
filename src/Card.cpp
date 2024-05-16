@@ -35,11 +35,11 @@ Card::Card(map<string, float> &config, FloatRect bg_bound, const string tex_path
         sub_rect = WALNUT_RECT;
         pos = Vector2f(bg_bound.left + 90, bg_bound.top + 430);
     }
-    /*else if (type == "MelonPult")
+    else if (type == "MelonPult")
     {
         sub_rect = MELONPULT_RECT;
         pos = Vector2f(bg_bound.left+70, bg_bound.top+530 );
-    }*/
+    }
     else
     {
         cerr << WRONG_TYPE_MESSAGE << endl;
@@ -106,6 +106,8 @@ Plant *Card::make_plant(Vector2f &position)
     {
         return new Plant(config, "Walnut.png", position);
     }
+    if (type == "MelonPult")
+        return new MelonPult(config, "MelonPult.png", position, bg_bound);
     return nullptr;
 }
 

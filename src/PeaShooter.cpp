@@ -62,7 +62,7 @@ void PeaShooter::set_target(BaseZombie* z)
 {
     if (z->get_height() == plant_sp.getGlobalBounds().top)
     {
-       if(zombie == nullptr || z->get_width() >= plant_sp.getGlobalBounds().left)
+       if(zombie == nullptr || z->get_width() >= plant_sp.getGlobalBounds().left && z->get_width() < zombie->get_width())
         {
             zombie = z;
         }
@@ -81,9 +81,8 @@ void PeaShooter::render(RenderWindow &window)
 void PeaShooter::make_shot() 
 {
     Sprite new_shot;
-    IntRect subrect(5, 70, 30, 25);
     new_shot.setTexture(shot_tex);
-    new_shot.setTextureRect(subrect);
+    new_shot.setTextureRect(PEA_SHOOTER_SHOT);
     new_shot.setPosition(position);
     shots.push_back(new_shot);
 }

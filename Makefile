@@ -1,5 +1,5 @@
 CC = g++
-CFLAGS = -std=c++20 -ggdb -Iinclude
+CFLAGS = -std=c++20 -Iinclude
 
 SFML_LIBS = -lsfml-graphics -lsfml-window -lsfml-system -lsfml-audio
 

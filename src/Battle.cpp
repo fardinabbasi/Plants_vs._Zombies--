@@ -9,7 +9,7 @@ Battle::Battle(map<string, map<string, float>> &config) : config(config), BaseSc
     deck.push_back(new Card(config["SnowPea"], background_sp.getGlobalBounds(), "SnowPea.png"));
     deck.push_back(new Card(config["Sunflower"], background_sp.getGlobalBounds(), "Sunflower.png"));
     deck.push_back(new Card(config["Walnut"], background_sp.getGlobalBounds(), "Walnut.png"));
-    // deck.push_back(new Card(config["MelonPult"], background_sp.getGlobalBounds(), "MelonPult.png"));
+    deck.push_back(new Card(config["MelonPult"], background_sp.getGlobalBounds(), "MelonPult.png"));
 }
 
 State Battle::render(RenderWindow &window)

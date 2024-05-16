@@ -16,6 +16,7 @@
 #define FRAME_RATE 30
 #define GARGANTUAR_RATIO 0.25
 #define COOL_PENALTY 5
+#define CURVE_COEFF -0.4
 
 using namespace sf;
 using namespace std;
@@ -40,6 +41,8 @@ const IntRect BATTLE_FIELD(250, 70, 745, 515);
 const IntRect SUN_RECT(0, 0, 350, 325);
 const IntRect ZOMBIE_RECT(5, 5, 23, 36);
 const IntRect MELONPULT_RECT(0, 0, 135, 120);
+const IntRect PEA_SHOOTER_SHOT(5, 70, 30, 25);
+const IntRect SNOW_SHOT(5, 105, 30, 25);
 
 enum State {
   BATTLE,
