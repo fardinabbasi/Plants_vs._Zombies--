@@ -19,7 +19,7 @@ void SnowPea::update()
     {
         attack_clock.restart();
         Sprite new_shot;
-        IntRect subrect(5, 103, 30, 127);
+        IntRect subrect(5, 103, 25, 27);
         new_shot.setTexture(shot_tex);
         new_shot.setTextureRect(subrect);
         new_shot.setPosition(position);
@@ -27,23 +27,34 @@ void SnowPea::update()
     }
     for_each(shots.begin(), shots.end(), [this](Sprite& shot){ shot.move(config["Speed"], 0); });
 
-    if (shots.front().getPosition().x >= bg_bound.width)
+    if(!shots.empty())
     {
-        shots.pop_front();
+        // if (shots.front().getPosition().x >= bg_bound.left)
+        // {
+        //     shots.pop_front();
+        // }
     }
     auto it = shots.begin();
-    while(it != shots.end())
+    if(zombie != nullptr)
     {
-        if (it->getGlobalBounds().left >= zombie->get_width())
+        cout<<"zombie sets"<<endl;
+        while(it != shots.end())
         {
-            zombie->hurt(config["Damage"],true);
-            it = shots.erase(it);
-            break;
+            if (it->getGlobalBounds().left >= zombie->get_width())
+            {
+                zombie->hurt(config["Damage"],true);
+                it = shots.erase(it);
+                break;
+            }
+            else
+            {  
+                ++it;
+            }
         }
-        else
-        {  
-            ++it;
-        }
+    }
+    else
+    {
+        cout<<"no zombie"<<endl;
     }
   
 }

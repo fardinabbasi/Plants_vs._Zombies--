@@ -23,6 +23,8 @@ config(config), bg_bound(bg_bound)
     sprite.setPosition(dis2(gen), bg_bound.top + HEIGHT_GRIDS[dis1(gen)]);
     hit.restart();
 
+    health = config["Health"];
+
 }
 
 void BaseZombie::update(){

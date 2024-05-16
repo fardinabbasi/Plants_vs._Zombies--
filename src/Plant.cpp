@@ -46,10 +46,14 @@ void Plant::render(RenderWindow &window)
 
 void Plant::update()
 {
-    if (plant_sp.getGlobalBounds().left >= zombie->get_width())
+    if(zombie != nullptr)
     {
-        zombie->hurt(config["Damage"]);
-    } 
+        if (plant_sp.getGlobalBounds().left >= zombie->get_width())
+        {
+            zombie->hurt(config["Damage"]);
+        } 
+    }
+    
 }
 
 Vector2f Plant::get_position()

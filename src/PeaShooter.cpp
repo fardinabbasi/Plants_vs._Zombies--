@@ -17,7 +17,7 @@ void PeaShooter::update()
     {
         attack_clock.restart();
         Sprite new_shot;
-        IntRect subrect(5, 70, 30, 95);
+        IntRect subrect(5, 70, 30, 25);
         new_shot.setTexture(shot_tex);
         new_shot.setTextureRect(subrect);
         new_shot.setPosition(position);
@@ -26,6 +26,7 @@ void PeaShooter::update()
     for_each(shots.begin(), shots.end(), [this](Sprite& shot){ shot.move(config["Speed"], 0); });
     if(!shots.empty())
     {
+
         // if (shots.front().getPosition().x >= bg_bound.left)
         // {
         //     shots.pop_front();
@@ -34,6 +35,7 @@ void PeaShooter::update()
     auto it = shots.begin();
     if(zombie != nullptr)
     {
+        cout<<"zombie sets"<<endl;
         while(it != shots.end())
         {
             if (it->getGlobalBounds().left >= zombie->get_width())
@@ -48,17 +50,26 @@ void PeaShooter::update()
             }
         }
     }
+    // else
+    // {
+    //     //cout<<"no zombie"<<endl;
+    // }
+
 
   
 }
 
 void PeaShooter::set_target(BaseZombie* z)
 {
-    if (z->get_height() == plant_sp.getGlobalBounds().height)
+    cout<<"zombies hight"<<z->get_height()<<endl;
+    cout<<"plant hight"<<plant_sp.getGlobalBounds().top<<endl;
+    if (z->get_height() == plant_sp.getGlobalBounds().top)
     {
+        cout<<"same hight"<<endl;
        if(zombie == nullptr ||
         (z->get_width() >= plant_sp.getGlobalBounds().left && z->get_width() < zombie->get_width()))
         {
+            cout<<"infront of mee"<<endl;
             zombie = z;
         }
     }
