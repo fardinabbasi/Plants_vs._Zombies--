@@ -19,7 +19,7 @@ class Plant
     virtual void set_target(BaseZombie* z);
     void hurt(unsigned int damage);
     bool dead();
-    virtual bool sun_pressed(int x, int y){ return false; }
+    virtual bool sun_press(int x, int y){ return false; }
     Vector2f get_position();
     FloatRect get_global_bounds();
 

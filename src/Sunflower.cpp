@@ -25,7 +25,7 @@ void Sunflower::update()
 
 }
 
-bool Sunflower::sun_pressed(int x,int y)
+bool Sunflower::sun_press(int x,int y)
 {
     auto it = suns.begin();
     while(it != suns.end())

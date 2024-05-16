@@ -37,7 +37,11 @@ State Battle::render(RenderWindow &window)
 
 void Battle::mouse_press(int x, int y)
 {
-    if (!sun->mouse_press(x, y))
+    if(any_of(plants.begin(),plants.end(),[x,y] (Plant* plant){ return plant->sun_press(x,y); } ))
+    {
+        sun->modify_budget();
+    }
+    else if (!sun->mouse_press(x, y))
     {
         auto it = find_if(deck.begin(), deck.end(), [x, y](Card *card)
                           { return card->contains(x, y); });
@@ -57,8 +61,6 @@ void Battle::mouse_release(int x, int y)
         chosen_card = nullptr;
         return;
     }
-    // this->is_occupied()
-
     Vector2f pos = find_position(x, y);
     if (!any_of(plants.begin(), plants.end(), [pos](Plant *plant)
                 { return plant->get_position() == pos; }))
