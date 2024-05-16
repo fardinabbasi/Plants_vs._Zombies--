@@ -10,6 +10,7 @@
 
 #define CONFIG_FILE_INDEX 1
 #define FILE_FAILED_MESSAGE "Failed to open the file!"
+#define WRONG_TYPE_MESSAGE "Not supported type!"
 #define WINDOW_WIDTH 1280
 #define WINDOW_HEIGHT 720
 #define FRAME_RATE 30

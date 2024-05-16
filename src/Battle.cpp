@@ -28,7 +28,7 @@ State Battle::render(RenderWindow &window)
     for_each(deck.begin(), deck.end(), [&window](Card *card)
              { card->render(window); });
     for_each(plants.begin(), plants.end(), [&window](Plant *plant)
-             { plants->render(window); });
+             { plant->render(window); });
 
     sun->render(window);
     window.display();
@@ -39,9 +39,9 @@ void Battle::mouse_press(int x, int y)
 {
     if (!sun->mouse_press(x, y))
     {
-        auto it = find_if(deck.begin(), deck.end(), [x, y](Card *card)
-                          { card.contains(x, y); });
-        if (it != deck.end() && it->ready() && sun->spend(it->get_price()))
+        auto it = find_if(deck.begin(), deck.end(), [x, y](Card* card)
+                          { card->contains(x, y); });
+        if (it != deck.end() && (*it)->ready() && sun->spend((*it)->get_price()))
             chosen_card = *it;
         else
             chosen_card = nullptr;
@@ -54,10 +54,9 @@ void Battle::mouse_release(int x, int y)
     {
         Vector2f pos = find_position(x, y);
         if (!any_of(plants.begin(), plants.end(), [pos](Plant *plant)
-                    { plant.getPosition() == pos; }))
+                    { plant->get_position() == pos; }))
         {
-            plants.push_back(new Plant(config[chosen_card.get_name()], chosen_card.get_name() + ".png", pos));
-            chosen_card->reset();
+            plants.push_back(chosen_card->make_plant(pos));
         }
     }
     chosen_card = nullptr;

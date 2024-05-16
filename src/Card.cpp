@@ -21,6 +21,7 @@ config(config)
     {
         sub_rect = PEA_RECT;
         Vector2f pos(bg_bound.left+70, bg_bound.top+130);
+        
     }
     else if(type == "SnowPea")
     {    sub_rect = SNOWPEA_RECT;
@@ -41,6 +42,9 @@ config(config)
     {
         sub_rect = MELONPULT_RECT;
         Vector2f pos(bg_bound.left+70, bg_bound.top+530 );
+    }
+    else{
+        cerr << WRONG_TYPE_MESSAGE << endl;
     }
 
     card_sp.setPosition(pos);
@@ -70,13 +74,12 @@ bool Card::contains(int x, int y)
     return card_sp.getGlobalBounds().contains(x,y);
 }
 
-plant* Card::make_plant(Vector2f& position)
+Plant* Card::make_plant(Vector2f& position)
 {
     cool_down.restart();
     if (type == "peaShooter")
     {
         return new PeaShooter(config["peaShooter"],"Projectiles",position,bg_bound);
-
     }
     else if (type == "SnowPea")
     {
@@ -88,6 +91,7 @@ plant* Card::make_plant(Vector2f& position)
     }
     else if (type == "Walnut")
     {
+        Plant* p = new Plant("Walnut",position);
         return new Plant("Walnut",position);
     }
 }
