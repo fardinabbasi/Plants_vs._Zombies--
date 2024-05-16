@@ -29,10 +29,10 @@ void SnowPea::update()
 
     if(!shots.empty())
     {
-        // if (shots.front().getPosition().x >= bg_bound.left)
-        // {
-        //     shots.pop_front();
-        // }
+        if (shots.front().getPosition().x >=  bg_bound.left+bg_bound.width)
+        {
+            shots.pop_front();
+        }
     }
     auto it = shots.begin();
     if(zombie != nullptr)
@@ -61,7 +61,7 @@ void SnowPea::update()
 
 void SnowPea::set_target(BaseZombie* z)
 {
-    if (z->get_height() == plant_sp.getGlobalBounds().height)
+    if (z->get_height() == plant_sp.getGlobalBounds().top)
     {
        if(zombie == nullptr ||
         (z->get_width() >= plant_sp.getGlobalBounds().left && z->get_width() < zombie->get_width()))
