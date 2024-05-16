@@ -65,9 +65,7 @@ void Battle::mouse_release(int x, int y)
     if (!any_of(plants.begin(), plants.end(), [pos](Plant *plant)
                 { return plant->get_position() == pos; }))
     {
-        cout << "empty" << endl;
         plants.push_back(chosen_card->make_plant(pos));
-        cout << plants.size() << endl;
         sun->modify_budget(-chosen_card->get_price());
     }
     chosen_card = nullptr;
@@ -119,25 +117,23 @@ void Battle::update()
 void Battle::find_target()
 {
     auto plant_it = plants.begin();
-    auto zombie_it = zombies.begin();
+    
 
     while (plant_it != plants.end())
     {
         if ((*plant_it)->dead())
         {
             plant_it = plants.erase(plant_it);
-            cout<<"plant died"<<endl;
             continue;
         }
+        auto zombie_it = zombies.begin();
         while (zombie_it != zombies.end())
         {
             if ((*zombie_it)->dead())
             {
                 zombie_it = zombies.erase(zombie_it);
-                cout<<"zombie died"<<endl;
                 continue;
             }
-            //cout<<"plant not died"<<endl;
             (*zombie_it)->set_target(*plant_it);
             (*plant_it)->set_target(*zombie_it);
             ++zombie_it;

@@ -13,7 +13,6 @@ config(config),position(position)
     plant_sp.setTextureRect(WALNUT_RECT);
     plant_sp.setPosition(position);
     plant_sp.setScale(0.6, 0.6);
-    cout<<"x is:"<<plant_sp.getPosition().x<<"y is:"<<plant_sp.getPosition().y<<endl;
 
 }
 
@@ -24,7 +23,7 @@ bool Plant::dead(){
 void Plant::hurt(unsigned int damage)
 {
     health -= damage;
-    //cout<<"health is:"<<health<<endl;
+
 }
 
 void Plant::set_target(BaseZombie* z)

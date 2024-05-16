@@ -18,7 +18,7 @@ config(config), bg_bound(bg_bound)
 
     random_device rd;
     mt19937 gen(rd());
-    uniform_int_distribution<int> dis1(0, HEIGHT_GRIDS.size());
+    uniform_int_distribution<int> dis1(0, HEIGHT_GRIDS.size()-1);
     uniform_int_distribution<int> dis2(BATTLE_FIELD.left+BATTLE_FIELD.width, bg_bound.left + bg_bound.width);
     sprite.setPosition(dis2(gen), bg_bound.top + HEIGHT_GRIDS[dis1(gen)]);
     hit.restart();
@@ -54,8 +54,6 @@ void BaseZombie::hurt(unsigned int damage, bool cool){
     if(cool){
         cool_penalty.restart();
     }
-    cout<<"health is:"<<health<<endl;
-
 }
 
 bool BaseZombie::dead(){

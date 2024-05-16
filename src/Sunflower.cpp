@@ -11,7 +11,6 @@ Sunflower::Sunflower(map<string, float> config,string shots_tex_file,const Vecto
 
 void Sunflower::update()
 {
-    //cout<<"hiiii"<<endl;
     if(attack_clock.getElapsedTime().asSeconds() >= config["HitRate"])
     {
         attack_clock.restart();
@@ -47,7 +46,6 @@ bool Sunflower::sun_press(int x,int y)
 void Sunflower::render(RenderWindow &window)
 {
     update();
-    //cout<<"im in sun render"<<endl;
     window.draw(plant_sp);
     for_each(suns.begin(), suns.end(), [&window](Sprite& sun){ window.draw(sun);});
 

@@ -11,11 +11,13 @@ class SnowPea : public Plant
 	    void update();
 	    void set_target(BaseZombie* z);
 	    void render(RenderWindow &window);
+		void make_shot();
 
 	private:
 	FloatRect bg_bound;
 	Texture shot_tex;
 	list<Sprite> shots;
+	bool first_shot_made;
 };
 
 #endif 

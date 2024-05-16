@@ -15,35 +15,42 @@ SnowPea::SnowPea(map<string, float> config,string shots_tex_file,const Vector2f&
 
 void SnowPea::update()
 {
-    if(attack_clock.getElapsedTime().asSeconds() >= config["HitRate"])
-    {
-        attack_clock.restart();
-        Sprite new_shot;
-        IntRect subrect(5, 103, 25, 27);
-        new_shot.setTexture(shot_tex);
-        new_shot.setTextureRect(subrect);
-        new_shot.setPosition(position);
-        shots.push_back(new_shot);
-    }
-    for_each(shots.begin(), shots.end(), [this](Sprite& shot){ shot.move(config["Speed"], 0); });
-
-    if(!shots.empty())
-    {
-        if (shots.front().getPosition().x >=  bg_bound.left+bg_bound.width)
-        {
-            shots.pop_front();
-        }
-    }
-    auto it = shots.begin();
+    
     if(zombie != nullptr)
     {
-        cout<<"zombie sets"<<endl;
+            if (!first_shot_made) 
+        {
+            
+            make_shot();
+            first_shot_made = true;
+        }
+        else 
+        {
+            if (attack_clock.getElapsedTime().asSeconds() >= config["HitRate"]) {
+                attack_clock.restart();
+                make_shot(); 
+            }
+        }
+        for_each(shots.begin(), shots.end(), [this](Sprite& shot){ shot.move(config["Speed"], 0); });
+
+        // if(!shots.empty())
+        // {
+        //     if (shots.front().getPosition().x >=  bg_bound.left+bg_bound.width)
+        //     {
+        //         shots.pop_front();
+        //     }
+        // }
+        auto it = shots.begin();
         while(it != shots.end())
         {
             if (it->getGlobalBounds().left >= zombie->get_width())
             {
                 zombie->hurt(config["Damage"],true);
                 it = shots.erase(it);
+                if (zombie->dead())
+                {
+                    zombie = nullptr;
+                }
                 break;
             }
             else
@@ -51,10 +58,6 @@ void SnowPea::update()
                 ++it;
             }
         }
-    }
-    else
-    {
-        cout<<"no zombie"<<endl;
     }
   
 }
@@ -76,4 +79,14 @@ void SnowPea::render(RenderWindow &window)
     update();
     window.draw(plant_sp);
     for_each(shots.begin(), shots.end(), [&window](Sprite& shot){ window.draw(shot);});
+}
+
+void SnowPea::make_shot() 
+{
+    Sprite new_shot;
+    IntRect subrect(5, 105, 30, 25);
+    new_shot.setTexture(shot_tex);
+    new_shot.setTextureRect(subrect);
+    new_shot.setPosition(position);
+    shots.push_back(new_shot);
 }

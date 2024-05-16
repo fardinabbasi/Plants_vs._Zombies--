@@ -23,7 +23,7 @@ class BaseZombie
     private:
     void update();
     const FloatRect bg_bound;
-    unsigned int health;
+    int health;
     Texture texture;
     Sprite sprite;
     Plant* plant;
