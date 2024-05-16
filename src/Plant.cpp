@@ -12,7 +12,7 @@ config(config)
     plant_sp.setTexture(plant_tex);
     plant_sp.setTextureRect(WALNUT_RECT);
     plant_sp.setPosition(position);
-    plant_sp.setScale(0.25, 0.25);
+    plant_sp.setScale(0.6, 0.6);
 }
 
 bool Plant::dead(){

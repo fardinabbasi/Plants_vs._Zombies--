@@ -11,7 +11,7 @@ class Sunflower : public Plant
 	bool sun_pressed(int x,int y);
 	void render(RenderWindow &window);
 	void update();
-	protected:
+	private:
 	Texture sun_tex;
 	list<Sprite> suns;
 };

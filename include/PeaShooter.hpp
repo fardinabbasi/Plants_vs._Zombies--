@@ -12,7 +12,7 @@ class PeaShooter : public Plant
 	    void set_target(BaseZombie* z);
 	    void render(RenderWindow &window);
 
-	protected:
+	private:
 	Texture shot_tex;
 	list<Sprite> shots;
 	FloatRect bg_bound;

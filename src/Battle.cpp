@@ -5,11 +5,11 @@ Battle::Battle(map<string, map<string, float>> &config) : config(config), BaseSc
     sun = new Sun(config["Sun"], background_sp.getGlobalBounds());
     attack_interval = 0;
     chosen_card = nullptr;
-    deck.push_back(new Card(config["PeaShooter"], background_sp.getGlobalBounds() , "PeaShooter.png"));
+    deck.push_back(new Card(config["PeaShooter"], background_sp.getGlobalBounds(), "PeaShooter.png"));
     deck.push_back(new Card(config["SnowPea"], background_sp.getGlobalBounds(), "SnowPea.png"));
-    deck.push_back(new Card(config["Sunflower"], background_sp.getGlobalBounds(),"Sunflower.png"));
+    deck.push_back(new Card(config["Sunflower"], background_sp.getGlobalBounds(), "Sunflower.png"));
     deck.push_back(new Card(config["Walnut"], background_sp.getGlobalBounds(), "Walnut.png"));
-    //deck.push_back(new Card(config["MelonPult"], background_sp.getGlobalBounds(), "MelonPult.png"));
+    // deck.push_back(new Card(config["MelonPult"], background_sp.getGlobalBounds(), "MelonPult.png"));
 }
 
 State Battle::render(RenderWindow &window)
@@ -39,7 +39,7 @@ void Battle::mouse_press(int x, int y)
 {
     if (!sun->mouse_press(x, y))
     {
-        auto it = find_if(deck.begin(), deck.end(), [x, y](Card* card)
+        auto it = find_if(deck.begin(), deck.end(), [x, y](Card *card)
                           { return card->contains(x, y); });
         if (it != deck.end() && (*it)->ready())
             chosen_card = *it;
@@ -50,18 +50,26 @@ void Battle::mouse_press(int x, int y)
 
 void Battle::mouse_release(int x, int y)
 {
-    if (chosen_card != nullptr && in_battle_feild(x, y) && sun->can_buy(chosen_card->get_price())){
-        Vector2f pos = find_position(x, y);
-        if (!any_of(plants.begin(), plants.end(), [pos](Plant *plant)
-                    { return plant->get_position() == pos; }))
-        {
-            plants.push_back(chosen_card->make_plant(pos));
-            sun->modify_budget(-chosen_card->get_price());
-        }
+    if (chosen_card == nullptr)
+        return;
+    if (!in_battle_feild(x, y) || !sun->can_buy(chosen_card->get_price()))
+    {
+        chosen_card = nullptr;
+        return;
+    }
+    // this->is_occupied()
+
+    Vector2f pos = find_position(x, y);
+    if (!any_of(plants.begin(), plants.end(), [pos](Plant *plant)
+                { return plant->get_position() == pos; }))
+    {
+        cout << "empty" << endl;
+        plants.push_back(chosen_card->make_plant(pos));
+        cout << plants.size() << endl;
+        sun->modify_budget(-chosen_card->get_price());
     }
     chosen_card = nullptr;
 }
-
 Vector2f Battle::find_position(int x, int y)
 {
     Vector2f nearest_point;
@@ -85,7 +93,8 @@ Vector2f Battle::find_position(int x, int y)
 
 bool Battle::in_battle_feild(int x, int y)
 {
-    return BATTLE_FIELD.contains(x - background_sp.getGlobalBounds().left, y - background_sp.getGlobalBounds().top);
+    //return BATTLE_FIELD.contains(x - background_sp.getGlobalBounds().left, y - background_sp.getGlobalBounds().top);
+    return true;
 }
 
 Battle::~Battle()

@@ -10,6 +10,7 @@ SnowPea::SnowPea(map<string, float> config,string shots_tex_file,const Vector2f&
         cerr << FILE_FAILED_MESSAGE << endl;
     }
     plant_sp.setTextureRect(SNOWPEA_RECT);
+    plant_sp.setScale(0.6, 0.6);
 }
 
 void SnowPea::update()

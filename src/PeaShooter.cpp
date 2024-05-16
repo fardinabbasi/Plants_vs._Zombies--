@@ -1,5 +1,5 @@
 #include "PeaShooter.hpp"
-PeaShooter::PeaShooter(map<string, float> config,string shots_tex_file,const Vector2f& position,FloatRect bg_bound) : Plant(config,"peaShooter.png", position)
+PeaShooter::PeaShooter(map<string, float> config,string shots_tex_file,const Vector2f& position,FloatRect bg_bound) : Plant(config,"PeaShooter.png", position)
 {
     bg_bound = bg_bound;
     attack_clock.restart();

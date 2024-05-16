@@ -12,7 +12,7 @@ class SnowPea : public Plant
 	    void set_target(BaseZombie* z);
 	    void render(RenderWindow &window);
 
-	protected:
+	private:
 	FloatRect bg_bound;
 	Texture shot_tex;
 	list<Sprite> shots;
