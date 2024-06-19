@@ -5,14 +5,14 @@
 #include "Defs.hpp"
 #include "Battle.hpp"
 
-
-class PVZ{
-    public:
+class PVZ
+{
+public:
     PVZ(map<string, map<string, float>> config);
     void run();
     void event_handler();
-    
-    private:
+
+private:
     State state;
     Menu menu;
     Battle battle;

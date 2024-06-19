@@ -30,13 +30,6 @@ void PeaShooter::update()
             }
         }
         for_each(shots.begin(), shots.end(), [this](Sprite& shot){ shot.move(config["Speed"], 0); });
-        // if(!shots.empty())
-        // {
-        //     if (shots.front().getPosition().x >= bg_bound.left+bg_bound.width)
-        //     {
-        //         shots.pop_front();
-        //     }
-        // }
         auto it = shots.begin();
         while(it != shots.end())
         {

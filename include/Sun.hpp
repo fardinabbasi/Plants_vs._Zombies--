@@ -7,16 +7,17 @@
 #include <list>
 #include "Defs.hpp"
 
-class Sun{
-    public:
+class Sun
+{
+public:
     Sun(){};
     Sun(map<string, float> config, const FloatRect bg_bound);
-    void render(RenderWindow& window);
+    void render(RenderWindow &window);
     bool mouse_press(int x, int y);
     void modify_budget(int num = 1) { budget += num; }
     bool can_buy(float price);
 
-    private:
+private:
     void update();
     map<string, float> config;
     FloatRect bg_bound;

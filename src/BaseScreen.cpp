@@ -1,7 +1,9 @@
 #include "BaseScreen.hpp"
 
-BaseScreen::BaseScreen(const string bg_image_path, const string bg_music_path){
-    if (!background_tex.loadFromFile(IMAGES_PATH + bg_image_path)) {
+BaseScreen::BaseScreen(const string bg_image_path, const string bg_music_path)
+{
+    if (!background_tex.loadFromFile(IMAGES_PATH + bg_image_path))
+    {
         cerr << FILE_FAILED_MESSAGE << endl;
     }
     if (!music.openFromFile(MUSIC_PATH + bg_music_path))
@@ -15,8 +17,10 @@ BaseScreen::BaseScreen(const string bg_image_path, const string bg_music_path){
     music_played = false;
 }
 
-State BaseScreen::render(RenderWindow &window){
-    if(!music_played){
+State BaseScreen::render(RenderWindow &window)
+{
+    if (!music_played)
+    {
         music.play();
         music_played = true;
     }

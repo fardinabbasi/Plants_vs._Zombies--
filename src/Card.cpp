@@ -38,7 +38,7 @@ Card::Card(map<string, float> &config, FloatRect bg_bound, const string tex_path
     else if (type == "MelonPult")
     {
         sub_rect = MELONPULT_RECT;
-        pos = Vector2f(bg_bound.left+70, bg_bound.top+530 );
+        pos = Vector2f(bg_bound.left + 70, bg_bound.top + 530);
     }
     else
     {

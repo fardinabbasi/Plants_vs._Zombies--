@@ -1,17 +1,17 @@
 #include "PVZ.hpp"
 
-
-PVZ::PVZ(map<string, map<string, float>> config):
-battle(config), victory_screen("Victory.jpg", "Victory.ogg"), lose_screen("GameOver.png", "Lose.ogg")
+PVZ::PVZ(map<string, map<string, float>> config) : battle(config), victory_screen("Victory.jpg", "Victory.ogg"), lose_screen("GameOver.png", "Lose.ogg")
 {
-    window.create(VideoMode(WINDOW_WIDTH ,WINDOW_HEIGHT), "PVZ", Style::Close);
+    window.create(VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT), "PVZ", Style::Close);
     window.setFramerateLimit(FRAME_RATE);
     window.setVerticalSyncEnabled(false);
     state = STARTING;
 }
 
-void PVZ::run(){
-    while (window.isOpen()) {
+void PVZ::run()
+{
+    while (window.isOpen())
+    {
         window.clear(Color::Black);
         event_handler();
         switch (state)
@@ -37,13 +37,14 @@ void PVZ::run(){
     }
 }
 
-void PVZ::event_handler(){
+void PVZ::event_handler()
+{
     Event event;
-    while (window.pollEvent(event) && state != EXIT) 
+    while (window.pollEvent(event) && state != EXIT)
     {
-        if(event.type == Event::Closed)
+        if (event.type == Event::Closed)
             state = EXIT;
-        else if(event.type == Event::MouseButtonPressed && event.mouseButton.button == Mouse::Left)
+        else if (event.type == Event::MouseButtonPressed && event.mouseButton.button == Mouse::Left)
         {
             switch (state)
             {
@@ -57,7 +58,7 @@ void PVZ::event_handler(){
                 break;
             }
         }
-        else if(event.type == Event::MouseButtonReleased && event.mouseButton.button == Mouse::Left)
+        else if (event.type == Event::MouseButtonReleased && event.mouseButton.button == Mouse::Left)
         {
             switch (state)
             {

@@ -37,7 +37,8 @@ State Battle::render(RenderWindow &window)
 
 void Battle::mouse_press(int x, int y)
 {
-    if(any_of(plants.begin(),plants.end(),[x,y] (Plant* plant){ return plant->sun_press(x,y); } ))
+    if (any_of(plants.begin(), plants.end(), [x, y](Plant *plant)
+               { return plant->sun_press(x, y); }))
     {
         sun->modify_budget();
     }
@@ -70,6 +71,7 @@ void Battle::mouse_release(int x, int y)
     }
     chosen_card = nullptr;
 }
+
 Vector2f Battle::find_position(int x, int y)
 {
     Vector2f nearest_point;
@@ -79,14 +81,16 @@ Vector2f Battle::find_position(int x, int y)
         for (unsigned int j = 0; j < HEIGHT_GRIDS.size(); ++j)
         {
             Vector2f current_point(background_sp.getGlobalBounds().left + WIDTH_GRIDS[i], background_sp.getGlobalBounds().top + HEIGHT_GRIDS[j]);
-            if(x >= current_point.x && y>= current_point.y){
-            double current_distance = sqrt(pow(current_point.x - x, 2) + pow(current_point.y - y, 2));
+            if (x >= current_point.x && y >= current_point.y)
+            {
+                double current_distance = sqrt(pow(current_point.x - x, 2) + pow(current_point.y - y, 2));
 
-            if (current_distance < min_distance){
-                min_distance = current_distance;
-                nearest_point = current_point;
+                if (current_distance < min_distance)
+                {
+                    min_distance = current_distance;
+                    nearest_point = current_point;
+                }
             }
-            }   
         }
     }
     return nearest_point;
@@ -117,7 +121,6 @@ void Battle::update()
 void Battle::find_target()
 {
     auto plant_it = plants.begin();
-    
 
     while (plant_it != plants.end())
     {

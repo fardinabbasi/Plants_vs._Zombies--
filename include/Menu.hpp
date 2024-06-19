@@ -3,12 +3,13 @@
 #include "BaseScreen.hpp"
 #include "Defs.hpp"
 
-class Menu: public BaseScreen{
-    public:
+class Menu : public BaseScreen
+{
+public:
     Menu();
     void mouse_press(int x, int y);
-    
-    private:
+
+private:
     RectangleShape button;
 };
 

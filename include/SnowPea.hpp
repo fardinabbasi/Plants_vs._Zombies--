@@ -4,20 +4,20 @@
 #include "Plant.hpp"
 #include "Defs.hpp"
 
-class SnowPea : public Plant 
+class SnowPea : public Plant
 {
-	public:
-		SnowPea(map<string, float> config,string shots_tex_file,const Vector2f& 		position,FloatRect bg_bound);
-	    void update();
-	    void set_target(BaseZombie* z);
-	    void render(RenderWindow &window);
-		void make_shot();
+public:
+	SnowPea(map<string, float> config, string shots_tex_file, const Vector2f &position, FloatRect bg_bound);
+	void update();
+	void set_target(BaseZombie *z);
+	void render(RenderWindow &window);
+	void make_shot();
 
-	private:
+private:
 	FloatRect bg_bound;
 	Texture shot_tex;
 	list<Sprite> shots;
 	bool first_shot_made;
 };
 
-#endif 
+#endif

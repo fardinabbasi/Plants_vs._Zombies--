@@ -30,12 +30,12 @@ private:
     map<string, map<string, float>> config;
     Sun *sun;
     list<Plant *> plants;
-    list<Card*> deck;
+    list<Card *> deck;
     list<BaseZombie *> zombies;
     State state;
     Clock attack_clk;
     unsigned int attack_interval;
-    Card* chosen_card;
+    Card *chosen_card;
     bool in_battle_feild(int x, int y);
 };
 

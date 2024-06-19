@@ -12,16 +12,17 @@
 #include "Sunflower.hpp"
 #include "MelonPult.hpp"
 
-class Card {
-	public:
-	Card(map<string, float>& config, FloatRect bg_bound, const string tex_path);
+class Card
+{
+public:
+	Card(map<string, float> &config, FloatRect bg_bound, const string tex_path);
 	void render(RenderWindow &window);
 	bool contains(int x, int y);
-	Plant* make_plant(Vector2f& position);
+	Plant *make_plant(Vector2f &position);
 	float get_price();
 	bool ready();
 
-	private:
+private:
 	int calc_cooldown();
 	FloatRect bg_bound;
 	map<string, float> config;
@@ -33,6 +34,5 @@ class Card {
 	Clock cool_down;
 	string type;
 };
-
 
 #endif

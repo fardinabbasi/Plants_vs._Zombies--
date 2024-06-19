@@ -7,7 +7,6 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
 
-
 #define CONFIG_FILE_INDEX 1
 #define FILE_FAILED_MESSAGE "Failed to open the file!"
 #define WRONG_TYPE_MESSAGE "Not supported type!"
@@ -25,13 +24,10 @@ const string IMAGES_PATH = "./assets/images/";
 const string MUSIC_PATH = "./assets/musics/";
 const string FONTS_PATH = "./assets/fonts/";
 
-
 const vector<unsigned int> WIDTH_GRIDS = {
-  255, 340, 410, 500, 570, 660, 740, 815, 895
-};
-const vector<unsigned int> HEIGHT_GRIDS ={
-  80, 175, 275, 380, 470
-};
+    255, 340, 410, 500, 570, 660, 740, 815, 895};
+const vector<unsigned int> HEIGHT_GRIDS = {
+    80, 175, 275, 380, 470};
 
 const IntRect PEA_RECT(0, 150, 95, 96);
 const IntRect SNOWPEA_RECT(0, 130, 120, 115);
@@ -44,13 +40,13 @@ const IntRect MELONPULT_RECT(0, 0, 135, 120);
 const IntRect PEA_SHOOTER_SHOT(5, 70, 30, 25);
 const IntRect SNOW_SHOT(5, 105, 30, 25);
 
-enum State {
+enum State
+{
   BATTLE,
   STARTING,
   VICTORY,
   GAMEOVER,
   EXIT
 };
-
 
 #endif
